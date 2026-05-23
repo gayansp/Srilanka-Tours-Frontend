@@ -14,13 +14,16 @@ function App() {
     <>
       <h1>This is navbar</h1>
       <Routes>
-        a
+        {/* Normal Routes */}
+        
 
         {/* admin routes */}
         <Route element={<AdminMiddleware/>}>
           <Route path='/adminDashboard' element={<AdminDashboard/>} />
+
         </Route>
 
+        {/* No Protect */}
         <Route path='/login' element={<Login/>}/>
         <Route path='/register' element={<Register/>}/>
       </Routes>
