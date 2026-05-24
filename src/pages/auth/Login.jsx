@@ -24,7 +24,7 @@ const Login = () => {
             localStorage.setItem("role", result.data.role);
 
             if (result.data.role === 'admin') {
-                navigate('/adminDashboard');
+                navigate('/admin');
             } else {
                 navigate('/');
             }
@@ -45,7 +45,7 @@ const Login = () => {
                     <p className="login-image-subtitle">Log in to manage your bookings, explore exclusive destinations, and plan your unforgettable journey.</p>
                 </div>
             </div>
-            
+
             <div className="login-form-section">
                 <div className="login-form-wrapper">
                     <div className="login-logo">
@@ -53,37 +53,37 @@ const Login = () => {
                             <img src="/images/udawalawe_tours_hq(2).png" alt="Lanka Tours" />
                         </Link>
                     </div>
-                    
+
                     <h2 className="login-title">Welcome Back</h2>
                     <p className="login-subtitle">Please enter your details to sign in.</p>
 
                     <form className="login-form" onSubmit={handleLogin}>
                         {error && <div className="login-error">{error}</div>}
-                        
+
                         <div className="input-group">
                             <label htmlFor="email">Email</label>
-                            <input 
-                                type="email" 
-                                id="email" 
-                                placeholder="Enter your email" 
+                            <input
+                                type="email"
+                                id="email"
+                                placeholder="Enter your email"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                required 
+                                required
                             />
                         </div>
-                        
+
                         <div className="input-group">
                             <label htmlFor="password">Password</label>
-                            <input 
-                                type="password" 
-                                id="password" 
-                                placeholder="Enter your password" 
+                            <input
+                                type="password"
+                                id="password"
+                                placeholder="Enter your password"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                                required 
+                                required
                             />
                         </div>
-                        
+
                         <button type="submit" className="btn-login" disabled={loading}>
                             {loading ? "Signing in..." : "Sign in"}
                         </button>
