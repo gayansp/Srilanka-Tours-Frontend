@@ -8,6 +8,7 @@ import AdminMiddleware from './middleware/AdminMiddleware'
 import AdminDashboard from './pages/admin/AdminDashboard'
 import UnAuthorizedPage from './pages/UnAuthorizedPage'
 import Header from './components/Header'
+import Hero from './components/Hero'
 
 function App() {
 
@@ -15,6 +16,7 @@ function App() {
   return (
     <>
      <Header/>
+     <Hero/>
       <Routes>
         {/* Normal Routes */}
         <Route path='/' element={<Dashboard/>}/>
