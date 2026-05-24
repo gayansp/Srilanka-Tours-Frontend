@@ -1,8 +1,15 @@
 import React from 'react'
+import { Route, Routes } from 'react-router-dom'
+import Destination from './Destination'
 
 const AdminDashboard = () => {
   return (
-    <div>Admin Dashboard</div>
+    <div>
+
+        <Routes>
+            <Route path='/destinations' element={<Destination/>} />
+        </Routes>
+    </div>
   )
 }
 
