@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import './Header.css';
+import '../Header.css';
 
 const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -18,11 +18,13 @@ const Header = () => {
 
   const publicLinks = [
     { to: '/', label: 'Home' },
-    { to: '/destinations', label: 'Destinations' },
-    { to: '/tours', label: 'Tours' },
-    { to: '/gallery', label: 'Gallery' },
-    { to: '/about', label: 'About' },
-    { to: '/contact', label: 'Contact' },
+    { to: '/admin/destinations', label: 'Destinations' },
+    { to: '/admin/tours', label: 'Tours' },
+    { to: '/admin/gallery', label: 'Gallery' },
+    { to: '/admin/rate', label: 'Rate' },
+
+
+
   ];
 
   const handleLogout = () => {
@@ -55,18 +57,8 @@ const Header = () => {
             </li>
           ))}
 
-          {/* Admin logged in නම් dashboard link */}
-          {isAdmin && (
-            <li>
-              <Link
-                to="/admin"
-                className="admin-link"
-                onClick={() => setMenuOpen(false)}
-              >
-                Admin Dashboard
-              </Link>
-            </li>
-          )}
+     
+       
         </ul>
 
         {/* Right side */}
