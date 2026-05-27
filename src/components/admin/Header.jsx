@@ -15,11 +15,10 @@ const Header = () => {
 
   const publicLinks = [
     { to: '/', label: 'Home' },
-    { to: '/destinations', label: 'Destinations' },
-    { to: '/tours', label: 'Tours' },
-    { to: '/gallery', label: 'Gallery' },
-    { to: '/about', label: 'About' },
-    { to: '/contact', label: 'Contact' },
+    { to: '/admin/destinations', label: 'Destinations' },
+    { to: '/admin/tours', label: 'Tours' },
+    { to: '/admin/gallery', label: 'Gallery' },
+    { to: '/admin/rate', label: 'Rate' },
   ];
 
   const handleLogout = () => {
@@ -29,17 +28,9 @@ const Header = () => {
     navigate('/');
   };
 
-  const getLinkClass = (to, isSpecialAdmin = false) => {
+  const getLinkClass = (to) => {
     const isActive = location.pathname === to;
-    const base = "font-sans font-medium relative pb-[2px] block max-md:py-3.5 max-md:px-6 max-md:text-[15px] text-sm transition-colors duration-200 after:content-[''] after:absolute after:bottom-[-2px] after:left-0 after:h-[2px] after:rounded-sm after:transition-all after:duration-250";
-    
-    if (isSpecialAdmin) {
-      return `${base} text-green-700 hover:text-green-800 after:bg-green-700 ${
-        isActive ? 'after:w-full' : 'after:w-0 hover:after:w-full'
-      }`;
-    }
-    
-    return `${base} ${
+    return `font-sans font-medium relative pb-[2px] block max-md:py-3.5 max-md:px-6 max-md:text-[15px] text-sm transition-colors duration-200 after:content-[''] after:absolute after:bottom-[-2px] after:left-0 after:h-[2px] after:rounded-sm after:transition-all after:duration-250 ${
       isActive 
         ? 'text-primary after:bg-accent after:w-full' 
         : 'text-gray-600 hover:text-primary after:bg-accent after:w-0 hover:after:w-full'
@@ -72,19 +63,6 @@ const Header = () => {
               </Link>
             </li>
           ))}
-
-          {/* Admin logged in නම් dashboard link */}
-          {isAdmin && (
-            <li className="max-md:w-full">
-              <Link
-                to="/admin"
-                className={getLinkClass("/admin", true)}
-                onClick={() => setMenuOpen(false)}
-              >
-                Admin Dashboard
-              </Link>
-            </li>
-          )}
         </ul>
 
         {/* Right side */}
@@ -98,7 +76,7 @@ const Header = () => {
             </button>
           ) : (
             <Link 
-              to="/Calculator" 
+              to="/contact" 
               className="font-sans text-[13px] font-medium bg-accent hover:bg-accent-hover text-white px-[18px] py-[9px] rounded-lg no-underline whitespace-nowrap transition-all duration-200 hover:-translate-y-[1px] max-md:hidden"
             >
               Calculate Your Trip

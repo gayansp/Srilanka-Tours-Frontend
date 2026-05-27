@@ -2,7 +2,42 @@ import React from 'react'
 
 const Destination = () => {
   return (
-    <div>Destination</div>
+    <div>
+      <h1>Destination</h1>
+      <h1>Destination</h1>
+      <h1>Destination</h1>
+      <h1>Destination</h1>
+      <h1>Destination</h1>
+      <h1>Destination</h1>
+      <h1>Destination</h1>
+      <h1>Destination</h1>
+      <h1>Destination</h1>
+      <h1>Destination</h1>
+      <h1>Destination</h1>
+      <h1>Destination</h1>
+      <h1>Destination</h1>
+      <h1>Destination</h1>
+      <h1>Destination</h1>
+      <h1>Destination</h1>
+      <h1>Destination</h1>
+      <h1>Destination</h1>
+      <h1>Destination</h1>
+      <h1>Destination</h1>
+      <h1>Destination</h1>
+      <h1>Destination</h1>
+      <h1>Destination</h1>
+      <h1>Destination</h1>
+      <h1>Destination</h1>
+      <h1>Destination</h1>
+      <h1>Destination</h1>
+      <h1>Destination</h1>
+      <h1>Destination</h1>
+      <h1>Destination</h1>
+      <h1>Destination</h1>
+      <h1>Destination</h1>
+      <h1>Destination</h1>
+      <h1>Destination</h1>
+    </div>
   )
 }
 

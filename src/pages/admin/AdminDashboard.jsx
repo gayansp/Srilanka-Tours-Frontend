@@ -1,14 +1,19 @@
 import React from 'react'
 import { Route, Routes } from 'react-router-dom'
-import Destination from './Destination'
+
+import Header from '../../components/admin/Header'
+import NoFound from '../NoFound'
+import Destination from "../admin/Destination"
+
 
 const AdminDashboard = () => {
   return (
     <div>
-
-        <Routes>
-            <Route path='/destinations' element={<Destination/>} />
-        </Routes>
+      <Header />
+      <Routes>
+        <Route path='/destinations' element={<Destination />} />
+        <Route path='/*' element={<NoFound />} />
+      </Routes>
     </div>
   )
 }
