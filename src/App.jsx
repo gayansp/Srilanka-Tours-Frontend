@@ -1,5 +1,4 @@
 
-import './App.css'
 import { Route, Routes } from 'react-router-dom'
 import Dashboard from './pages/Dashboard'
 import Login from './pages/auth/Login'
@@ -32,7 +31,7 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/register' element={<Register />} />
         <Route path='/unauthorized' element={<UnAuthorizedPage />} />
-      </Routes>
+        </Routes>
     </>
   )
 }
