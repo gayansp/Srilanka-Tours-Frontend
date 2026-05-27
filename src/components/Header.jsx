@@ -98,7 +98,7 @@ const Header = () => {
             </button>
           ) : (
             <Link 
-              to="/contact" 
+              to="/Calculator" 
               className="font-sans text-[13px] font-medium bg-accent hover:bg-accent-hover text-white px-[18px] py-[9px] rounded-lg no-underline whitespace-nowrap transition-all duration-200 hover:-translate-y-[1px] max-md:hidden"
             >
               Calculate Your Trip

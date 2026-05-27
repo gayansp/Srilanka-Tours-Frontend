@@ -14,7 +14,7 @@ const Hero = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrent(prev => (prev + 1) % slides.length);
-    }, 5000);
+    }, 4000);
     return () => clearInterval(timer);
   }, []);
 
@@ -35,7 +35,7 @@ const Hero = () => {
       <div className="absolute inset-0 bg-[linear-gradient(120deg,_rgba(10,25,15,0.88)_0%,_rgba(10,25,15,0.5)_60%,_rgba(10,25,15,0.2)_100%)] z-10 pointer-events-none" />
 
       {/* Content */}
-      <div className="relative z-20 max-w-[600px] md:ml-[8%] ml-0">
+      <div className="relative z-20 max-w-[600px] md:ml-[8%] ml-0 mt-20">
         <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 text-white font-sans text-xs px-3.5 py-1.5 rounded-full mb-[22px] backdrop-blur-[8px]">
           <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
           {slides[current].tag}
