@@ -9,59 +9,28 @@ import {
   Car,
   Bus
 } from 'lucide-react';
+import api from '../../api/axios';
+import toast from 'react-hot-toast';
 
 // Mock distances between popular Sri Lankan cities (in km)
-const DISTANCE_MAP = {
-  'colombo-kandy': 115,
-  'kandy-colombo': 115,
-  'colombo-galle': 125,
-  'galle-colombo': 125,
-  'kandy-ella': 140,
-  'ella-kandy': 140,
-  'colombo-ella': 200,
-  'ella-colombo': 200,
-  'colombo-sigiriya': 175,
-  'sigiriya-colombo': 175,
-  'kandy-sigiriya': 90,
-  'sigiriya-kandy': 90,
-  'galle-mirissa': 35,
-  'mirissa-galle': 35,
-  'colombo-airport': 35,
-  'airport-colombo': 35
-};
 
-const VEHICLES = [
-  {
-    id: 'sedan',
-    name: 'Sedan Car',
-    icon: Car,
-    capacity: '3 Pax',
-    rate: 120,
-    desc: 'Comfortable'
-  },
-  {
-    id: 'suv',
-    name: 'SUV / Van',
-    icon: Bus,
-    capacity: '6 Pax',
-    rate: 180,
-    desc: 'Family size'
-  },
-  {
-    id: 'minibus',
-    name: 'Mini Bus',
-    icon: Bus,
-    capacity: '15 Pax',
-    rate: 250,
-    desc: 'Small groups'
-  }
-];
 
 export function Calculator() {
-  const [startLoc, setStartLoc] = useState('');
-  const [endLoc, setEndLoc] = useState('');
+
+  const [rates, setRates] = useState([]);
+  const [costData, setCostData] = useState(null);
+  const [isCalculated, setIsCalculated] = useState(false);
+
+  const [startLoc, setStartLoc] = useState({ lat: 3.179923492694522, lng: 79.88397104877485 });
+  const [endLoc, setEndLoc] = useState({ lat: 9.840501633747571, lng: 81.83680543711263 });
+
   const [distance, setDistance] = useState(null);
-  const [selectedVehicle, setSelectedVehicle] = useState(VEHICLES[1]);
+
+  const [selectedVehicle, setSelectedVehicle] = useState(null);
+  const [selectedVehicleName, setSelectedVehicleName] = useState(null);
+  const [totalCost, setTotalCost] = useState(null);
+
+
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   // Form input value bindings
@@ -70,45 +39,85 @@ export function Calculator() {
   const [travelDate, setTravelDate] = useState('');
   const [pickupTime, setPickupTime] = useState('');
 
+  const [costLoading, setCostLoading] = useState(false);
+
   // Calculate distance when locations change
   useEffect(() => {
-    if (startLoc.length > 2 && endLoc.length > 2) {
-      const key = `${startLoc.toLowerCase().trim()}-${endLoc.toLowerCase().trim()}`;
-      if (DISTANCE_MAP[key]) {
-        setDistance(DISTANCE_MAP[key]);
-      } else {
-        // Fallback pseudo-random stable distance
-        setDistance((startLoc.length * endLoc.length * 13) % 300 + 20);
-      }
-    } else {
-      setDistance(null);
+    if (!isCalculated) {
+      fetchRates();
+
     }
-  }, [startLoc, endLoc]);
+  }, []);
 
-  const handleSubmit = (e) => {
+  const fetchRates = async () => {
+    try {
+      setIsCalculated(false);
+      const response = await api.get('/rates');
+      setRates(response.data);
+
+      toast.success('Rates updated successfully!');
+    } catch (error) {
+      toast.error('Something went wrong !');
+      console.error('Error fetching rates:', error);
+    }
+  }
+
+  const calculateCost = async () => {
+    try {
+      setCostLoading(true);
+
+      const response = await api.post('/cal', {
+        startCoords: startLoc,
+        endCoords: endLoc
+      });
+      toast.success('Distance calculated successfully!');
+      setCostData(response.data);
+      setIsCalculated(true)
+      setCostLoading(false);
+    } catch (error) {
+      toast.error('Something went wrong!');
+      console.error('Error calculating distance:', error);
+      setCostLoading(false);
+    }
+  };
+
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    setIsSubmitting(true);
+    
+    try {
+      if(!isCalculated){
+        toast.error('Please calculate the cost before submitting your inquiry.');
+        return;
+      }
 
-    setTimeout(() => {
-      setIsSubmitting(false);
-      
-      const estimatedPrice = distance ? distance * selectedVehicle.rate : 0;
-      const whatsappBusinessNumber = '94771234567'; // Update with your actual WhatsApp contact number
+      if(!startLoc || !endLoc){
+        toast.error('Please enter both start and end locations.');
+        return;
+      }
 
-      const textMessage = 
-        `*NEW TRIP BOOKING INQUIRY*\n\n` +
-        `👤 *Customer Name:* ${fullName}\n` +
-        `📱 *Contact:* ${phone}\n\n` +
-        `📍 *Start Location:* ${startLoc}\n` +
-        `🏁 *End Location:* ${endLoc}\n` +
-        `🛣️ *Distance:* ${distance ? `${distance} KM` : 'Pending'}\n\n` +
-        `🚗 *Vehicle Type:* ${selectedVehicle.name}\n` +
-        `📅 *Schedule:* ${travelDate} @ ${pickupTime}\n\n` +
-        `💰 *Estimated Total:* Rs. ${estimatedPrice.toLocaleString()}`;
+      if(!selectedVehicle){
+        toast.error('Please select a vehicle type before submitting your inquiry.');
+        return;
+      }
 
-      window.open(`https://wa.me/${whatsappBusinessNumber}?text=${encodeURIComponent(textMessage)}`, '_blank');
-      alert('Inquiry Sent Successfully! Your parameters have been transferred to chat.');
-    }, 1000);
+      const response = await api.post("inquery/add",{
+        startCoords : startLoc,
+        endCoords : endLoc,
+        rateId : selectedVehicle,
+        contact: phone,
+        fullName: fullName,
+        date: travelDate,
+        time: pickupTime
+      })
+
+      toast.success('Inquiry sent successfully! We will contact you soon.');
+
+
+    } catch (error) {
+      toast.error('Something went wrong!');
+      console.error('Error submitting inquiry:', error);
+    }
+    
   };
 
   const estimatedPrice = distance ? distance * selectedVehicle.rate : 0;
@@ -118,7 +127,7 @@ export function Calculator() {
       {/* Light blue shape element completely removed here to clear background space */}
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">
-        
+
         {/* Animated Header Component Container */}
         <div className="text-center mb-16 animate-in fade-in slide-in-from-bottom-4 duration-700 ease-out fill-mode-forwards">
           <h2 className="font-serif text-4xl md:text-5xl font-bold text-slate-900 mb-4">
@@ -132,11 +141,11 @@ export function Calculator() {
 
         <div className="bg-white rounded-3xl shadow-xl border border-emerald-800 overflow-hidden">
           <div className="grid grid-cols-1 lg:grid-cols-12">
-            
+
             {/* Form Section Column - Changed bg-white to soft bg-slate-50 */}
             <div className="lg:col-span-8 bg-slate-50 p-8 md:p-12">
               <form onSubmit={handleSubmit} className="space-y-8">
-                
+
                 {/* Locations Routing Field Group */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 relative">
                   <div className="space-y-2">
@@ -174,8 +183,25 @@ export function Calculator() {
                         className="w-full pl-12 pr-4 py-3 rounded-xl bg-white border border-gray-200 focus:border-emerald-600 focus:ring-2 focus:ring-emerald-600/10 transition-all outline-none text-slate-800 shadow-sm"
                       />
                     </div>
+
+
+                    {/* Calculate Button */}
+                    <div className="pt-4">
+                      <button
+                        type="button"
+                        onClick={calculateCost}
+                        className="w-full cursor-pointer
+                         inline-flex items-center justify-center px-4 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold shadow-sm transition"
+                        
+                      >
+                        {costLoading ? 'Calculating...' : 'Calculate'}
+                      </button>
+                    </div>
+
                   </div>
                 </div>
+
+
 
                 {/* Tier Fleet Selection Selector Array */}
                 <div className="space-y-4">
@@ -187,32 +213,35 @@ export function Calculator() {
                   </label>
 
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                    {VEHICLES.map((vehicle) => {
-                      const Icon = vehicle.icon;
-                      const isSelected = selectedVehicle.id === vehicle.id;
+                    {
+                      !isCalculated ? rates.map((rate) => (
+                        <div onClick={()=>{
+                          setSelectedVehicle(rate._id)
+                        }} className={`p-4  cursor-pointer
+                        rounded-xl border text-left transition-all ${selectedVehicle === rate._id ? 'border-emerald-600 bg-emerald-50' : 'border-gray-200'} shadow-sm`}>
+                          <div className="font-semibold text-sm text-slate-800">{rate.vehicleType}</div>
 
-                      return (
-                        <button
-                          key={vehicle.id}
-                          type="button"
-                          onClick={() => setSelectedVehicle(vehicle)}
-                          className={`p-4 rounded-xl border text-left transition-all bg-white shadow-sm flex flex-col justify-between ${
-                            isSelected
-                              ? 'border-emerald-600 ring-2 ring-emerald-600/10 bg-emerald-50/10'
-                              : 'border-gray-200 hover:bg-gray-50'
-                          }`}
-                        >
-                          <div>
-                            <Icon className={`w-6 h-6 mb-3 ${isSelected ? 'text-emerald-600' : 'text-slate-400'}`} />
-                            <div className="font-semibold text-sm text-slate-800">{vehicle.name}</div>
-                            <div className="text-xs text-slate-500 mt-1">{vehicle.capacity}</div>
-                          </div>
                           <div className="text-xs font-semibold text-emerald-600 mt-4 pt-2 border-t border-gray-100 w-full">
-                            Rs {vehicle.rate}/km
+                            Rs {rate.priceperkm}/km
                           </div>
-                        </button>
-                      );
-                    })}
+                        </div>
+                      )) : costData.calculatedCosts.map((cost) => (
+                        <div onClick={()=>{
+
+                          setSelectedVehicle(cost.id)
+                          setSelectedVehicleName(cost.vehicleType)
+                          setTotalCost(cost.cost)
+                          toast.success(`Selected ${selectedVehicleName} for your trip!`)
+                        }} className={`p-4 rounded-xl border text-left transition-all ${selectedVehicle === cost.id ? 'border-emerald-600 bg-emerald-50' : 'border-gray-200'} cursor-pointer hover:bg-gray-50 shadow-sm`}>
+                          <div className="font-semibold text-sm text-slate-800">{cost.vehicleType}</div>
+
+                          
+                          <div className="text-xs font-semibold text-emerald-600 mt-4 pt-2 border-t border-gray-100 w-full">
+                           Cost:  Rs {cost.cost}
+                          </div>
+                        </div>
+                      ))
+                    }
                   </div>
                 </div>
 
@@ -309,25 +338,23 @@ export function Calculator() {
                   <div className="flex justify-between items-center pb-6 border-b border-white/10">
                     <span className="text-white/60">Estimated Distance</span>
                     <span className="text-2xl font-bold">
-                      {distance ? `${distance} km` : '--'}
+                      {costData ? `${costData.distanceKm} km` : '--'}
                     </span>
                   </div>
 
                   <div className="flex justify-between items-center pb-6 border-b border-white/10">
                     <span className="text-white/60">Vehicle Type</span>
                     <span className="font-semibold text-right">
-                      {selectedVehicle.name}
+                      {costData ? selectedVehicleName : '--'}
                       <br />
-                      <span className="text-sm text-emerald-400 font-normal">
-                        Rs {selectedVehicle.rate}/km
-                      </span>
+                     
                     </span>
                   </div>
 
                   <div className="pt-4">
                     <span className="text-white/60 block mb-2">Estimated Total</span>
                     <div className="text-4xl font-bold text-emerald-400">
-                      {estimatedPrice ? `Rs ${estimatedPrice.toLocaleString()}` : '--'}
+                      {costData ? `Rs ${totalCost}` : '--'}
                     </div>
 
                     <p className="text-xs text-white/40 mt-6 leading-relaxed">

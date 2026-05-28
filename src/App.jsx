@@ -11,12 +11,14 @@ import Hero from './components/Home/Hero'
 import NotFound from "./pages/NoFound"
 import AdminDash from './pages/Admin'
 import AHeader from './components/admin/AHeader'
+import { Toaster } from 'react-hot-toast'
 
 function App() {
 
 
   return (
     <>
+      <Toaster/>
       <Header />
       <AHeader />
       <Routes>
