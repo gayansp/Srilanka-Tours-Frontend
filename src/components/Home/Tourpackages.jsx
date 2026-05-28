@@ -7,7 +7,7 @@ const PACKAGES = [
     title: 'Cultural Triangle Tour',
     duration: '5 Days / 4 Nights',
     price: '$450',
-    image: 'public/images/mir.jpg',
+    image: 'public/images/kandy.jpg',
     inclusions: [
       'Sigiriya Rock Fortress',
       'Dambulla Cave Temple',
@@ -21,7 +21,7 @@ const PACKAGES = [
     title: 'Hill Country & Beach',
     duration: '7 Days / 6 Nights',
     price: '$680',
-    image: 'public/images/kandy.jpg',
+    image: 'public/images/mir.jpg',
     inclusions: [
       'Scenic Train Ride',
       'Tea Plantation Tour',
@@ -35,7 +35,7 @@ const PACKAGES = [
     title: 'Wildlife Safari Explorer',
     duration: '3 Days / 2 Nights',
     price: '$320',
-    image: 'public/images/bt.jpg',
+    image: 'public/images/c8.jpg',
     inclusions: [
       'Yala National Park',
       'Udawalawe Safari',

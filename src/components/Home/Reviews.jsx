@@ -30,11 +30,11 @@ export function Reviews() {
         {/* Top Header Section Banner Elements */}
         <div className="text-center mb-16 relative">
           <div className="flex items-center justify-center gap-2 mb-2">
-            <div className="w-12 h-[2px] bg-red-400" />
-            <span className="text-xs uppercase tracking-[0.2em] font-bold text-red-500">
+            <div className="w-12 h-[2px] bg-green-400" />
+            <span className="text-xs uppercase tracking-[0.2em] font-bold text-green-500">
               Tripadvisor
             </span>
-            <div className="w-12 h-[2px] bg-red-400" />
+            <div className="w-12 h-[2px] bg-green-400" />
           </div>
           <h2 className="text-4xl md:text-5xl font-black text-[#0a2240] tracking-tight uppercase">
             Write Your Experience
@@ -59,9 +59,9 @@ export function Reviews() {
                 Udawalawa Tours and Safari – Private Car Tours in Sri Lanka
               </h3>
               <div className="flex gap-4 text-xs font-semibold text-slate-600 mt-2">
-                <a href="#read" className="hover:text-[#00aa6c] transition-colors underline decoration-slate-400">Read reviews</a>
+                <a href="https://www.tripadvisor.com/Attraction_Review-g3577009-d34293796-Reviews-Udawalawa_Tours_and_Safari_Private_Car_Tours_in_Sri_Lanka-Udawalawa_Sabaragamuw.html" className="hover:text-[#00aa6c] transition-colors underline decoration-slate-400">Read reviews</a>
                 <span className="text-slate-300">|</span>
-                <a href="#write" className="hover:text-[#00aa6c] transition-colors underline decoration-slate-400">Write a review</a>
+                <a href="https://www.tripadvisor.com/UserReviewEdit-g3577009-d34293796-Udawalawa_Tours_and_Safari_Private_Car_Tours_in_Sri_Lanka-Udawalawa_Sabaragamuwa_Province.html" className="hover:text-[#00aa6c] transition-colors underline decoration-slate-400">Write a review</a>
               </div>
             </div>
           </div>
