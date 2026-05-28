@@ -42,8 +42,8 @@ const Hero = () => {
         </div>
 
         <h1 className="font-playfair text-[clamp(36px,5.5vw,64px)] text-white leading-[1.15] mb-[18px] tracking-[-1px] font-bold">
-          Discover the Wild
-          <span className="text-accent block"> Heart of Sri Lanka</span>
+          Sri Lanka Tours
+          <span className="text-accent block"> and Safari</span>
         </h1>
 
         <p className="font-sans text-base text-white/75 leading-[1.7] mb-[30px] max-w-[460px]">
