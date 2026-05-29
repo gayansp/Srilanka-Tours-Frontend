@@ -55,7 +55,7 @@ export function Calculator() {
       const response = await api.get('/rates');
       setRates(response.data);
 
-      toast.success('Rates updated successfully!');
+
     } catch (error) {
       toast.error('Something went wrong !');
       console.error('Error fetching rates:', error);
@@ -70,7 +70,7 @@ export function Calculator() {
         startCoords: startLoc,
         endCoords: endLoc
       });
-      toast.success('Distance calculated successfully!');
+
       setCostData(response.data);
       setIsCalculated(true)
       setCostLoading(false);
@@ -231,7 +231,7 @@ export function Calculator() {
                           setSelectedVehicle(cost.id)
                           setSelectedVehicleName(cost.vehicleType)
                           setTotalCost(cost.cost)
-                          toast.success(`Selected ${selectedVehicleName} for your trip!`)
+                         
                         }} className={`p-4 rounded-xl border text-left transition-all ${selectedVehicle === cost.id ? 'border-emerald-600 bg-emerald-50' : 'border-gray-200'} cursor-pointer hover:bg-gray-50 shadow-sm`}>
                           <div className="font-semibold text-sm text-slate-800">{cost.vehicleType}</div>
 
@@ -354,7 +354,7 @@ export function Calculator() {
                   <div className="pt-4">
                     <span className="text-white/60 block mb-2">Estimated Total</span>
                     <div className="text-4xl font-bold text-emerald-400">
-                      {costData ? `Rs ${totalCost}` : '--'}
+                      {totalCost ? `Rs ${totalCost}` : '--'}
                     </div>
 
                     <p className="text-xs text-white/40 mt-6 leading-relaxed">

@@ -1,16 +1,19 @@
 import React from 'react'
 import Hero from '../components/Home/Hero'
 import Header from '../components/Home/Header'
-import { Route } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import NotFound from "../pages/NoFound"
-import { Calculator } from '../components/Home/Calculator'
+import { WhyChooseUs } from '../components/Home/Chooseus'
+
+import Footer from '../components/Home/Footer'
+import UserDash from './UserDash'
 import { Destinations } from '../components/Home/Destination'
 import { TourPackages } from '../components/Home/Tourpackages'
 import { Gallery } from '../components/Home/Gallery'
 import { Reviews } from '../components/Home/Reviews'
-import { WhyChooseUs } from '../components/Home/Chooseus'
 import { Contactus } from '../components/Home/Contactus'
-import Footer from '../components/Home/Footer'
+
+
 
 
 
@@ -24,21 +27,17 @@ const Dashboard = () => {
       <Header />
 
       <main className="flex-grow">
-        <Hero />
         
-        <Calculator />
-        
-        <Destinations />
-        
-        <TourPackages />
-        
-        <Gallery />
-        
-        <Reviews />
-        
-        <WhyChooseUs />
-        
-        <Contactus />
+        <Routes>
+          <Route path='/' element={<UserDash />} />
+          <Route path='/destinations' element={<Destinations />} />
+          <Route path='/tours' element={<TourPackages />} />
+          <Route path='/gallery' element={<Gallery />} />
+          <Route path='/about' element={<Reviews />} />
+   
+          <Route path='/contact' element={<Contactus />} />
+          <Route path='/*' element={<NotFound />} />
+        </Routes>
         
       </main>
 

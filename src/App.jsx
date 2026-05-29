@@ -9,7 +9,7 @@ import UnAuthorizedPage from './pages/UnAuthorizedPage'
 import Header from './components/Home/Header'
 import Hero from './components/Home/Hero'
 import NotFound from "./pages/NoFound"
-import AdminDash from './pages/Admin'
+import AdminDash from './pages/admin/Admin'
 import AHeader from './components/admin/AHeader'
 import { Toaster } from 'react-hot-toast'
 
@@ -23,13 +23,12 @@ function App() {
       <AHeader />
       <Routes>
         {/* Normal Routes */}
-        <Route path='/' element={<Dashboard />} />
-        <Route path='/*' element={<NotFound />} />
+        <Route path='/*' element={<Dashboard />} />
+        
         {/* <Route path='/about' element={<About />} /> */}
 
         {/* admin routes */}
         <Route element={<AdminMiddleware />}>
-          <Route path='/admin' element={<AdminDash />} />
           <Route path='/admin/*' element={<AdminDashboard />} />
 
         </Route>
