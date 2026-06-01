@@ -18,7 +18,7 @@ export default function Contact() {
         description: 'Thank you for reaching out. We will get back to you within 24 hours.',
         icon: <CheckCircle2 className="w-5 h-5 text-green-500" />
       });
-      e.target.reset(); 
+      e.target.reset();
     }, 1500);
   };
 
