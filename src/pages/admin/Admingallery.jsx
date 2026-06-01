@@ -21,7 +21,7 @@ export default function Admingaller() {
       setPhotos(response.data.galleryImages);
     } catch (error) {
       console.error('Error fetching gallery images:', error);
-      toast.error('Failed to load gallery images');
+      toast.error('Something went wrong');
       setIsError(true);
     }
   };
