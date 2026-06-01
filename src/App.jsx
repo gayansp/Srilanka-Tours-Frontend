@@ -19,8 +19,6 @@ function App() {
   return (
     <>
       <Toaster/>
-      <Header />
-      <AHeader />
       <Routes>
         {/* Normal Routes */}
         <Route path='/*' element={<Dashboard />} />

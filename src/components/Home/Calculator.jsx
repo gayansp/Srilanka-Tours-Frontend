@@ -17,88 +17,35 @@ import toast from 'react-hot-toast';
 
 export function Calculator() {
 
-  const [rates, setRates] = useState([]);
-  const [costData, setCostData] = useState(null);
-  const [isCalculated, setIsCalculated] = useState(false);
 
   const [startLoc, setStartLoc] = useState({ lat: 3.179923492694522, lng: 79.88397104877485 });
   const [endLoc, setEndLoc] = useState({ lat: 9.840501633747571, lng: 81.83680543711263 });
 
-  const [distance, setDistance] = useState(null);
-
-  const [selectedVehicle, setSelectedVehicle] = useState(null);
-  const [selectedVehicleName, setSelectedVehicleName] = useState(null);
-  const [totalCost, setTotalCost] = useState(null);
-
-
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  // Form input value bindings
   const [fullName, setFullName] = useState('');
   const [phone, setPhone] = useState('');
   const [travelDate, setTravelDate] = useState('');
   const [pickupTime, setPickupTime] = useState('');
 
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+
+
   const [costLoading, setCostLoading] = useState(false);
 
   // Calculate distance when locations change
   useEffect(() => {
-    if (!isCalculated) {
-      fetchRates();
 
-    }
   }, []);
 
-  const fetchRates = async () => {
-    try {
-      setIsCalculated(false);
-      const response = await api.get('/rates');
-      setRates(response.data);
 
 
-    } catch (error) {
-      toast.error('Something went wrong !');
-      console.error('Error fetching rates:', error);
-    }
-  }
 
-  const calculateCost = async () => {
-    try {
-      setCostLoading(true);
-
-      const response = await api.post('/cal', {
-        startCoords: startLoc,
-        endCoords: endLoc
-      });
-
-      setCostData(response.data);
-      setIsCalculated(true)
-      setCostLoading(false);
-    } catch (error) {
-      toast.error('Something went wrong!');
-      console.error('Error calculating distance:', error);
-      setCostLoading(false);
-    }
-  };
 
   const handleSubmit = async(e) => {
     e.preventDefault();
     
     try {
-      if(!isCalculated){
-        toast.error('Please calculate the cost before submitting your inquiry.');
-        return;
-      }
-
-      if(!startLoc || !endLoc){
-        toast.error('Please enter both start and end locations.');
-        return;
-      }
-
-      if(!selectedVehicle){
-        toast.error('Please select a vehicle type before submitting your inquiry.');
-        return;
-      }
 
       const response = await api.post("inquery/add",{
         startCoords : startLoc,
@@ -120,7 +67,6 @@ export function Calculator() {
     
   };
 
-  const estimatedPrice = distance ? distance * selectedVehicle.rate : 0;
 
   return (
     <section id="calculator" className="py-24 bg-white relative">
@@ -158,7 +104,7 @@ export function Calculator() {
                         type="text"
                         required
                         placeholder="e.g. Colombo Airport"
-                        value={startLoc}
+  
                         onChange={(e) => setStartLoc(e.target.value)}
                         className="w-full pl-12 pr-4 py-3 rounded-xl bg-white border border-gray-200 focus:border-emerald-600 focus:ring-2 focus:ring-emerald-600/10 transition-all outline-none text-slate-800 shadow-sm"
                       />
@@ -178,25 +124,14 @@ export function Calculator() {
                         type="text"
                         required
                         placeholder="e.g. Kandy"
-                        value={endLoc}
                         onChange={(e) => setEndLoc(e.target.value)}
                         className="w-full pl-12 pr-4 py-3 rounded-xl bg-white border border-gray-200 focus:border-emerald-600 focus:ring-2 focus:ring-emerald-600/10 transition-all outline-none text-slate-800 shadow-sm"
                       />
                     </div>
 
 
-                    {/* Calculate Button */}
-                    <div className="pt-4">
-                      <button
-                        type="button"
-                        onClick={calculateCost}
-                        className="w-full cursor-pointer
-                         inline-flex items-center justify-center px-4 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-semibold shadow-sm transition"
-                        
-                      >
-                        {costLoading ? 'Calculating...' : 'Calculate'}
-                      </button>
-                    </div>
+
+                    
 
                   </div>
                 </div>
@@ -214,33 +149,8 @@ export function Calculator() {
 
                   <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                     {
-                      !isCalculated ? rates.map((rate) => (
-                        <div onClick={()=>{
-                          setSelectedVehicle(rate._id)
-                        }} className={`p-4  cursor-pointer
-                        rounded-xl border text-left transition-all ${selectedVehicle === rate._id ? 'border-emerald-600 bg-emerald-50' : 'border-gray-200'} shadow-sm`}>
-                          <div className="font-semibold text-sm text-slate-800">{rate.vehicleType}</div>
-
-                          <div className="text-xs font-semibold text-emerald-600 mt-4 pt-2 border-t border-gray-100 w-full">
-                            Rs {rate.priceperkm}/km
-                          </div>
-                        </div>
-                      )) : costData.calculatedCosts.map((cost) => (
-                        <div onClick={()=>{
-
-                          setSelectedVehicle(cost.id)
-                          setSelectedVehicleName(cost.vehicleType)
-                          setTotalCost(cost.cost)
-                         
-                        }} className={`p-4 rounded-xl border text-left transition-all ${selectedVehicle === cost.id ? 'border-emerald-600 bg-emerald-50' : 'border-gray-200'} cursor-pointer hover:bg-gray-50 shadow-sm`}>
-                          <div className="font-semibold text-sm text-slate-800">{cost.vehicleType}</div>
-
-                          
-                          <div className="text-xs font-semibold text-emerald-600 mt-4 pt-2 border-t border-gray-100 w-full">
-                           Cost:  Rs {cost.cost}
-                          </div>
-                        </div>
-                      ))
+                      
+                      
                     }
                   </div>
                 </div>
@@ -338,14 +248,14 @@ export function Calculator() {
                   <div className="flex justify-between items-center pb-6 border-b border-white/10">
                     <span className="text-white/60">Estimated Distance</span>
                     <span className="text-2xl font-bold">
-                      {costData ? `${costData.distanceKm} km` : '--'}
+                      
                     </span>
                   </div>
 
                   <div className="flex justify-between items-center pb-6 border-b border-white/10">
                     <span className="text-white/60">Vehicle Type</span>
                     <span className="font-semibold text-right">
-                      {costData ? selectedVehicleName : '--'}
+                     
                       <br />
                      
                     </span>
@@ -354,7 +264,7 @@ export function Calculator() {
                   <div className="pt-4">
                     <span className="text-white/60 block mb-2">Estimated Total</span>
                     <div className="text-4xl font-bold text-emerald-400">
-                      {totalCost ? `Rs ${totalCost}` : '--'}
+                     
                     </div>
 
                     <p className="text-xs text-white/40 mt-6 leading-relaxed">
