@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 const DESTINATIONS = [
   {
@@ -40,10 +41,32 @@ const DESTINATIONS = [
   }
 ];
 
+const containerVariants = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.15
+    }
+  }
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 30 },
+  show: { 
+    opacity: 1, 
+    y: 0, 
+    transition: { 
+      type: "spring", 
+      stiffness: 80, 
+      damping: 15 
+    } 
+  }
+};
+
 export function Destinations() {
   return (
     // Added safety fallback bg-gray-50 if bg-surface isn't defined
-    <section id="destinations" className="py-24 bg-surface bg-gray-50">
+    <section id="destinations" className="py-24 bg-surface bg-gray-50 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
         
         {/* Changed from <FadeIn> to clean flex <div> */}
@@ -70,12 +93,20 @@ export function Destinations() {
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 auto-rows-[250px] gap-4 md:gap-6">
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-80px" }}
+          className="grid grid-cols-1 md:grid-cols-4 auto-rows-[250px] gap-4 md:gap-6"
+        >
           {DESTINATIONS.map((dest) => (
-            /* Changed from <FadeIn> to standard structural <div> to eliminate module errors */
-            <div
+            <motion.div
               key={dest.id}
-              className={`group relative rounded-2xl overflow-hidden cursor-pointer w-full h-full ${dest.colSpan}`}
+              variants={cardVariants}
+              whileHover={{ scale: 1.03, y: -4 }}
+              transition={{ duration: 0.3, ease: "easeOut" }}
+              className={`group relative rounded-2xl overflow-hidden cursor-pointer w-full h-full shadow-md hover:shadow-2xl transition-all duration-300 ${dest.colSpan}`}
             >
               <img
                 src={dest.image}
@@ -93,9 +124,9 @@ export function Destinations() {
                   {dest.tagline}
                 </p>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

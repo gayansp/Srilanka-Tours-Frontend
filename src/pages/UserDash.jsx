@@ -19,7 +19,7 @@ const UserDash = () => {
         
         <TourPackages />
         
-        <Gallery />
+        <Gallery limit={5} />
         
         <Reviews />
         
