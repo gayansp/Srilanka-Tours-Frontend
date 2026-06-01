@@ -1,10 +1,34 @@
 import React, { useEffect, useState } from 'react';
 import api from '../../api/axios';
 import toast from 'react-hot-toast';
-import { WifiOff, RefreshCw, CircleCheck, ImageOff } from 'lucide-react';
+import { WifiOff, RefreshCw, CircleCheck, ImageOff, ArrowRight } from 'lucide-react';
 import ErrorPage from '../../pages/ErrorPage';
+import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
-export function Gallery() {
+const containerVariants = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.12
+    }
+  }
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 25 },
+  show: { 
+    opacity: 1, 
+    y: 0, 
+    transition: { 
+      type: "spring", 
+      stiffness: 85, 
+      damping: 15 
+    } 
+  }
+};
+
+export function Gallery({ limit }) {
 
   const [photos, setPhotos] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -28,6 +52,20 @@ export function Gallery() {
   useEffect(() => {
     fetchGallery();
   }, []);
+
+  const displayedPhotos = limit
+    ? [...photos]
+        .sort((a, b) => {
+          if (a.createdAt && b.createdAt) {
+            return new Date(b.createdAt) - new Date(a.createdAt);
+          }
+          if (a._id && b._id) {
+            return b._id.localeCompare(a._id);
+          }
+          return 0;
+        })
+        .slice(0, limit)
+    : photos;
 
   // ─── Loading State ───────────────────────────────────────────────────────────
   if (isLoading) {
@@ -92,48 +130,104 @@ export function Gallery() {
 
   // ─── Success State ───────────────────────────────────────────────────────────
   return (
-    <section id="gallery" className="py-24 bg-white">
+    <section id="gallery" className="py-24 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
 
-        <div className="text-center mb-16 animate-in fade-in slide-in-from-bottom-4 duration-700 ease-out fill-mode-forwards">
-          <span className="text-emerald-600 font-semibold tracking-wider uppercase text-sm mb-2 block">
-            Visual Journey
-          </span>
-          <h2 className="font-serif text-4xl md:text-5xl font-bold text-slate-900 mb-4">
-            Moments in Sri Lanka
-          </h2>
-        </div>
+        {limit ? (
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+            <div className="max-w-2xl">
+              <span className="text-emerald-600 font-semibold tracking-wider uppercase text-sm mb-2 block">
+                Visual Journey
+              </span>
+              <h2 className="font-serif text-4xl md:text-5xl font-bold text-slate-900 mb-4">
+                Moments in Sri Lanka
+              </h2>
+              <p className="text-slate-600 text-lg">
+                Experience the vibrant culture, breathtaking landscapes, and unforgettable moments captured across our beautiful island.
+              </p>
+            </div>
+            <Link
+              to="/gallery"
+              className="inline-flex items-center gap-2 text-primary text-blue-600 font-semibold hover:text-emerald-600 transition-colors group no-underline"
+            >
+              View All Gallery
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
+        ) : (
+          <div className="text-center mb-16 animate-in fade-in slide-in-from-bottom-4 duration-700 ease-out fill-mode-forwards">
+            <span className="text-emerald-600 font-semibold tracking-wider uppercase text-sm mb-2 block">
+              Visual Journey
+            </span>
+            <h2 className="font-serif text-4xl md:text-5xl font-bold text-slate-900 mb-4">
+              Moments in Sri Lanka
+            </h2>
+          </div>
+        )}
 
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-          {photos.map((photo, index) => {
-            const delayClasses = [
-              'delay-0',
-              'delay-75 md:delay-[100ms]',
-              'delay-100 md:delay-[200ms]',
-              'delay-150 md:delay-[300ms]',
-              'delay-200 md:delay-[400ms]',
-              'delay-300 md:delay-[500ms]'
-            ];
+        {limit ? (
+          <motion.div 
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-80px" }}
+            className="grid grid-cols-1 md:grid-cols-4 auto-rows-[250px] gap-4 md:gap-6"
+          >
+            {displayedPhotos.map((photo, index) => {
+              const colSpan = index === 0 ? 'md:col-span-2 md:row-span-2' : 'md:col-span-1 md:row-span-1';
 
-            return (
-              <div
-                key={index}
-                className={`rounded-2xl overflow-hidden shadow-sm border border-gray-100/50 animate-in fade-in zoom-in-95 duration-700 ease-out fill-mode-forwards ${delayClasses[index] || 'delay-0'} ${
-                  index === 0 || index === 3 ? 'md:row-span-2' : ''
-                }`}
-              >
-                <div className="relative group h-full w-full aspect-square md:aspect-auto">
-                  <img
-                    src={photo.image}
-                    alt={`Sri Lanka Gallery ${index + 1}`}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
-                </div>
-              </div>
-            );
-          })}
-        </div>
+              return (
+                <motion.div
+                  key={photo._id || index}
+                  variants={cardVariants}
+                  whileHover={{ scale: 1.03, y: -4 }}
+                  transition={{ duration: 0.3, ease: "easeOut" }}
+                  className={`group relative rounded-2xl overflow-hidden border border-gray-100/50 shadow-sm w-full h-full hover:shadow-xl transition-all duration-300 ${colSpan}`}
+                >
+                  <div className="relative h-full w-full">
+                    <img
+                      src={photo.image}
+                      alt={`Sri Lanka Gallery ${index + 1}`}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
+                  </div>
+                </motion.div>
+              );
+            })}
+          </motion.div>
+        ) : (
+          <motion.div 
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-80px" }}
+            className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6"
+          >
+            {displayedPhotos.map((photo, index) => {
+              return (
+                <motion.div
+                  key={photo._id || index}
+                  variants={cardVariants}
+                  whileHover={{ scale: 1.03, y: -4 }}
+                  transition={{ duration: 0.3, ease: "easeOut" }}
+                  className={`rounded-2xl overflow-hidden shadow-sm border border-gray-100/50 hover:shadow-xl transition-all duration-300 ${
+                    index === 0 || index === 3 ? 'md:row-span-2' : ''
+                  }`}
+                >
+                  <div className="relative group h-full w-full aspect-square md:aspect-auto">
+                    <img
+                      src={photo.image}
+                      alt={`Sri Lanka Gallery ${index + 1}`}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
+                  </div>
+                </motion.div>
+              );
+            })}
+          </motion.div>
+        )}
 
       </div>
     </section>

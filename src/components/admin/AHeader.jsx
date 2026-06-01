@@ -38,7 +38,11 @@ const Header = () => {
   };
 
   return (
+<<<<<<< HEAD
     <header className=" top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-black/[0.07]">
+=======
+    <header className="top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-black/[0.07]">
+>>>>>>> 2bac7f9b5c39517c405a96e296701a93456fe56d
       <div className="max-w-[1200px] mx-auto px-6 h-[68px] flex items-center justify-between gap-6">
 
         {/* Logo */}
