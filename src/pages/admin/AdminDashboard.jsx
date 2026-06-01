@@ -7,6 +7,7 @@ import Destination from "../admin/Destination"
 import Rate from "../admin/Rate"
 import Admingaller from '../admin/Admingallery'
 import AdminTours from './Tours'
+import AdminDash from './Admin'
 
 
 
@@ -20,6 +21,7 @@ const AdminDashboard = () => {
     <div>
       <Header />
       <Routes>
+        <Route path='/' element={<AdminDash />} />
         <Route path='/destinations' element={<Destination />} />
         <Route path='/Rate' element={<Rate />} />
         <Route path='/gallery' element={<Admingaller />} />

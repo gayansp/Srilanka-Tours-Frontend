@@ -31,7 +31,7 @@ const Header = () => {
 
   const getLinkClass = (to, isSpecialAdmin = false) => {
     const isActive = location.pathname === to;
-    const base = "font-sans font-medium relative pb-[2px] block max-md:py-3.5 max-md:px-6 max-md:text-[15px] text-sm transition-colors duration-200 after:content-[''] after:absolute after:bottom-[-2px] after:left-0 after:h-[2px] after:rounded-sm after:transition-all after:duration-250";
+    const base = "font-sans font-medium relative pb-[2px] block max-md:py-3.5 max-md:px-6 max-md:text-[15px] text-sm transition-all duration-300 hover:scale-[1.04] active:scale-[0.97] after:content-[''] after:absolute after:bottom-[-2px] after:left-0 after:h-[2px] after:rounded-sm after:transition-all after:duration-250";
     
     if (isSpecialAdmin) {
       return `${base} text-green-700 hover:text-green-800 after:bg-green-700 ${
@@ -41,18 +41,18 @@ const Header = () => {
     
     return `${base} ${
       isActive 
-        ? 'text-primary after:bg-accent after:w-full' 
+        ? 'text-primary after:bg-accent after:w-full font-bold' 
         : 'text-gray-600 hover:text-primary after:bg-accent after:w-0 hover:after:w-full'
     }`;
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-black/[0.07]">
+    <header className=" top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md border-b border-black/[0.07]">
       <div className="max-w-[1200px] mx-auto px-6 h-[68px] flex items-center justify-between gap-6">
 
         {/* Logo */}
-        <Link to="/" className="font-playfair text-[22px] text-primary no-underline shrink-0 select-none">
-          <img src="/public/images/udawalawe_tours_hq(2).png" alt="Lanka Tours" className="h-20 w-auto object-contain" />
+        <Link to="/" className="font-playfair text-[22px] text-primary no-underline shrink-0 select-none group">
+          <img src="/public/images/udawalawe_tours_hq(2).png" alt="Lanka Tours" className="h-20 w-auto object-contain transition-transform duration-300 group-hover:scale-[1.04]" />
         </Link>
 
         {/* Nav links */}
@@ -99,7 +99,7 @@ const Header = () => {
           ) : (
             <Link 
               to="/Calculator" 
-              className="font-sans text-[13px] font-medium bg-accent hover:bg-accent-hover text-white px-[18px] py-[9px] rounded-lg no-underline whitespace-nowrap transition-all duration-200 hover:-translate-y-[1px] max-md:hidden"
+              className="font-sans text-[13px] font-medium bg-accent hover:bg-accent-hover text-white px-[18px] py-[9px] rounded-lg no-underline whitespace-nowrap transition-all duration-300 hover:scale-[1.04] hover:shadow-md active:scale-[0.97] hover:-translate-y-[1px] max-md:hidden"
             >
               Calculate Your Trip
             </Link>

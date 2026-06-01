@@ -1,121 +1,124 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Plus, Trash2, Upload } from 'lucide-react';
 import { Modal, ConfirmDialog } from '../../components/admin/Model';
 import { toast } from 'sonner';
-
-const INITIAL = [
-  {
-    id: 1,
-    url: '/images/WhatsApp Image 2026-05-27 at 13.45.57.jpeg',
-    caption: 'Image 1'
-  },
-  {
-    id: 2,
-    url: '/images/WhatsApp Image 2026-05-27 at 13.45.58.jpeg',
-    caption: 'Image 2'
-  },
-  {
-    id: 3,
-    url: '/images/WhatsApp Image 2026-05-27 at 13.46.03.jpeg',
-    caption: 'Image 3'
-  },
-  {
-    id: 4,
-    url: '/images/WhatsApp Image 2026-05-27 at 13.46.04.jpeg',
-    caption: 'Image 4'
-  },
-  {
-    id: 5,
-    url: '/images/WhatsApp Image 2026-05-27 at 13.46.05.jpeg',
-    caption: 'Image 5'
-  },
-  {
-    id: 6,
-    url: '/images/WhatsApp Image 2026-05-27 at 13.46.02.jpeg',
-    caption: 'Image 6'
-  }
-];
+import api from '../../api/axios';
+import ErrorPage from '../ErrorPage';
 
 export default function Admingaller() {
-  const [photos, setPhotos] = useState(INITIAL);
+  const [photos, setPhotos] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
-  const [selectedIds, setSelectedIds] = useState(new Set());
-  const [bulkDeleteOpen, setBulkDeleteOpen] = useState(false);
+  const [imageUrl, setImageUrl] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [preview, setPreview] = useState('');
+  const [isError, setIsError] = useState(false);
 
-  const [form, setForm] = useState({
-    file: null,
-    preview: '',
-    caption: ''
-  });
-
-  // ✅ File Upload Handler
-  const handleFileChange = (e) => {
-    const file = e.target.files[0];
-
-    if (file) {
-      setForm({
-        ...form,
-        file,
-        preview: URL.createObjectURL(file)
-      });
+  // ─── Fetch Gallery ───────────────────────────────────────────────────────────
+  const fetchGallery = async () => {
+    try {
+      const response = await api.get("gallery/get");
+      setPhotos(response.data.galleryImages);
+    } catch (error) {
+      console.error('Error fetching gallery images:', error);
+      toast.error('Failed to load gallery images');
+      setIsError(true);
     }
   };
 
-  // ✅ Add Image
-  const handleAdd = (e) => {
+  useEffect(() => {
+    fetchGallery();
+  }, []);
+
+  // ─── File Upload Handler ─────────────────────────────────────────────────────
+  const handleFileChange = async (e) => {
+    try {
+      const file = e.target.files[0];
+      if (!file) return;
+
+      setPreview(URL.createObjectURL(file));
+
+      const formData = new FormData();
+      formData.append('image', file);
+
+      const response = await api.post("imageUpload", formData);
+      
+      setImageUrl(response.data.url);
+      toast.success('Image uploaded successfully');
+
+    } catch (error) {
+      console.error('Error uploading image:', error.response?.data || error.message);
+      toast.error('Failed to upload image');
+      setIsError(true);
+    }
+  };
+
+  // ─── Add Image ───────────────────────────────────────────────────────────────
+  const handleAdd = async (e) => {
     e.preventDefault();
 
-    const newId = Math.max(0, ...photos.map((p) => p.id)) + 1;
+    if (!imageUrl) {
+      toast.error('Please upload an image first');
+      return;
+    }
 
-    setPhotos([
-      {
-        id: newId,
-        url: form.preview,
-        caption: form.caption
-      },
-      ...photos
-    ]);
+    try {
+      setIsLoading(true);
+      await api.post("gallery/add", { image: imageUrl });
+      toast.success('Image added to gallery');
 
-    toast.success('Image added to gallery');
+      // Reset & refresh
+      setImageUrl('');
+      setPreview('');
+      setIsModalOpen(false);
+      await fetchGallery();
 
-    setForm({
-      file: null,
-      preview: '',
-      caption: ''
-    });
-
-    setIsModalOpen(false);
-  };
-
-  // ✅ Delete single
-  const handleDelete = () => {
-    if (deleteId !== null) {
-      setPhotos(photos.filter((p) => p.id !== deleteId));
-      toast.success('Image deleted');
-      setDeleteId(null);
+    } catch (error) {
+      console.error('Error adding image:', error.response?.data || error.message);
+      toast.error('Failed to add image');
+      setIsError(true);
+    } finally {
+      setIsLoading(false);
     }
   };
 
-  // ✅ Select toggle
-  const toggleSelect = (id) => {
-    const next = new Set(selectedIds);
-    if (next.has(id)) next.delete(id);
-    else next.add(id);
-    setSelectedIds(next);
+  // ─── Delete Image ────────────────────────────────────────────────────────────
+  const handleDelete = async () => {
+    try {
+      if (deleteId !== null) {
+        await api.delete(`gallery/delete/${deleteId}`);
+        toast.success('Image deleted successfully!');
+        setDeleteId(null);
+        await fetchGallery();
+      }
+    } catch (error) {
+      console.error('Error deleting image:', error);
+      toast.error('Failed to delete image');
+      setIsError(true);
+    }
   };
 
-  // ✅ Bulk delete
-  const handleBulkDelete = () => {
-    setPhotos(photos.filter((p) => !selectedIds.has(p.id)));
-    toast.success(`${selectedIds.size} images deleted`);
-    setSelectedIds(new Set());
-    setBulkDeleteOpen(false);
+  // ─── Close Modal (reset state) ───────────────────────────────────────────────
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setImageUrl('');
+    setPreview('');
   };
+
+  // ─── Render ──────────────────────────────────────────────────────────────────
+
+
+  if (isError) {
+    return <ErrorPage />;
+  }
+
+ 
 
   return (
     <div className="space-y-6 max-w-7xl">
 
+
+      
       {/* HEADER */}
       <div className="flex justify-between items-center">
         <div className="text-sm text-text-muted">
@@ -132,95 +135,67 @@ export default function Admingaller() {
 
       {/* GRID */}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-        {photos.map((photo) => {
-          const isSelected = selectedIds.has(photo.id);
+        {photos.map((photo) => (
+          <div
+            key={photo._id}
+            className="relative rounded-2xl overflow-hidden border-2 border-transparent"
+          >
+            <img
+              src={photo.image}
+              alt="gallery"
+              className="w-full h-40 object-cover"
+            />
 
-          return (
-            <div
-              key={photo.id}
-              className={`relative rounded-2xl overflow-hidden border-2 ${
-                isSelected ? 'border-primary' : 'border-transparent'
-              }`}
+            {/* Delete Button */}
+            <button
+              onClick={() => setDeleteId(photo._id)}
+              className="absolute top-2 right-2 bg-red-600 text-white p-1 rounded"
             >
-              <img
-                src={photo.url}
-                alt={photo.caption}
-                className="w-full h-40 object-cover"
-              />
-
-              {/* Select */}
-              <button
-                onClick={() => toggleSelect(photo.id)}
-                className="absolute top-2 left-2 w-6 h-6 bg-white rounded border"
-              >
-                {isSelected && '✓'}
-              </button>
-
-              {/* Delete */}
-              <button
-                onClick={() => setDeleteId(photo.id)}
-                className="absolute top-2 right-2 bg-red-600 text-white p-1 rounded"
-              >
-                <Trash2 className="w-4 h-4" />
-              </button>
-            </div>
-          );
-        })}
+              <Trash2 className="w-4 h-4" />
+            </button>
+          </div>
+        ))}
 
         {/* Upload Card */}
         <button
           onClick={() => setIsModalOpen(true)}
-          className="border-2 border-dashed rounded-2xl flex flex-col items-center justify-center h-40"
+          className="border-2 border-dashed rounded-2xl flex flex-col items-center justify-center h-40 gap-2 text-sm text-gray-500"
         >
-          <Upload />
+          <Upload className="w-6 h-6" />
           Add Image
         </button>
       </div>
 
-      {/* MODAL */}
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} title="Add Image">
+      {/* ADD IMAGE MODAL */}
+      <Modal isOpen={isModalOpen} onClose={handleCloseModal} title="Add Image">
         <form onSubmit={handleAdd} className="space-y-4">
 
-          {/* FILE UPLOAD */}
+          {/* File Input */}
           <div>
-            <label className="font-semibold">Upload Image</label>
-
+            <label className="font-semibold block mb-2">Upload Image</label>
             <input
               type="file"
               accept="image/*"
-              capture="environment"
               onChange={handleFileChange}
-              className="w-full mt-2"
+              className="w-full"
               required
             />
-
-            {/* PREVIEW */}
-            {form.preview && (
-              <img
-                src={form.preview}
-                alt="preview"
-                className="mt-3 w-full h-48 object-cover rounded-lg"
-              />
-            )}
           </div>
 
-          {/* CAPTION */}
-          <input
-            type="text"
-            placeholder="Caption"
-            value={form.caption}
-            onChange={(e) =>
-              setForm({ ...form, caption: e.target.value })
-            }
-            className="w-full px-4 py-2 border rounded-lg"
-            required
-          />
+          {/* Preview */}
+          {preview && (
+            <img
+              src={preview}
+              alt="preview"
+              className="w-full h-48 object-cover rounded-lg"
+            />
+          )}
 
-          {/* BUTTONS */}
+          {/* Buttons */}
           <div className="flex justify-end gap-3">
             <button
               type="button"
-              onClick={() => setIsModalOpen(false)}
+              onClick={handleCloseModal}
               className="px-4 py-2 border rounded"
             >
               Cancel
@@ -228,35 +203,26 @@ export default function Admingaller() {
 
             <button
               type="submit"
-              className="px-4 py-2 bg-primary text-white rounded"
+              disabled={isLoading || !imageUrl}
+              className="px-4 py-2 bg-primary text-white rounded disabled:opacity-50"
             >
-              Add
+              {isLoading ? 'Adding...' : 'Add to Gallery'}
             </button>
           </div>
         </form>
       </Modal>
 
-      {/* DELETE SINGLE */}
+      {/* DELETE CONFIRM DIALOG */}
       <ConfirmDialog
         isOpen={deleteId !== null}
         onClose={() => setDeleteId(null)}
         onConfirm={handleDelete}
         title="Delete Image"
-        description="Are you sure?"
+        description="Are you sure you want to delete this image?"
         confirmLabel="Delete"
         danger
       />
 
-      {/* BULK DELETE */}
-      <ConfirmDialog
-        isOpen={bulkDeleteOpen}
-        onClose={() => setBulkDeleteOpen(false)}
-        onConfirm={handleBulkDelete}
-        title="Delete Selected"
-        description="Delete selected images?"
-        confirmLabel="Delete"
-        danger
-      />
     </div>
   );
 }
