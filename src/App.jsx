@@ -23,7 +23,6 @@ function App() {
 
   return (
     <>
-<<<<<<< HEAD
       <Toaster />
       <ScrollToTop />
       <AnimatePresence mode="wait">
