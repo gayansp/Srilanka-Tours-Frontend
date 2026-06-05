@@ -57,6 +57,7 @@ export default function AdminTours() {
   
   const [form, setForm] = useState(EMPTY_FORM);
   const [locInput, setLocInput] = useState('');
+  
 
   const handleOpenCreate = () => {
     setForm(EMPTY_FORM);

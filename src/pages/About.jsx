@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 // import { motion } from 'framer-motion';
 import {
   Compass,
@@ -12,8 +13,7 @@ import {
   Quote,
   CheckCircle2
 } from 'lucide-react';
-import Header from '../components/Home/Header';
-import Footer from '../components/Home/Footer';
+import { Calculator } from '../components/Home/Calculator';
 import { FadeIn } from '../components/Home/FadeIn';
 
 const VALUES = [
@@ -41,7 +41,7 @@ const VALUES = [
 
 const TEAM = [
   {
-    name: 'Kasun Udawala',
+    name: 'Mayura sandeep',
     role: 'Founder & Lead Guide',
     bio: 'Born in the hill country, Kasun has been guiding travelers for over 15 years.',
     image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=400&auto=format&fit=crop'
@@ -116,13 +116,13 @@ const STATS = [
 export default function About() {
   return (
     <div className="min-h-screen bg-background font-sans text-text">
-      <Header />
+      
 
       {/* Hero */}
       <section className="relative pt-32 pb-20 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
-            src="https://images.unsplash.com/photo-1583087253076-5d1315860eb4?q=80&w=2070&auto=format&fit=crop"
+            src="/public/images/LK710AA01F-03-E.webp"
             alt="Sri Lankan tea fields"
             className="w-full h-full object-cover"
           />
@@ -187,13 +187,13 @@ export default function About() {
 
               <div className="mt-8 pt-8 border-t border-gray-100 flex items-center gap-4">
                 <img
-                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200&auto=format&fit=crop"
+                  src="public/images/WhatsApp Image 2026-05-27 at 13.46.05.jpeg"
                   alt="Founder signature"
                   className="w-16 h-16 rounded-full object-cover border-2 border-accent"
                 />
                 <div>
                   <div className="font-serif text-xl font-bold text-text">
-                    Kasun Udawala
+                    Mayura Sandeep
                   </div>
                   <div className="text-sm text-text-muted">Founder & CEO</div>
                 </div>
@@ -204,7 +204,7 @@ export default function About() {
               <div className="relative">
                 <div className="aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl">
                   <img
-                    src="https://images.unsplash.com/photo-1546708770-599a93d44b30?q=80&w=1974&auto=format&fit=crop"
+                    src="public/images/WhatsApp Image 2026-05-27 at 13.46.02.jpeg"
                     alt="Sri Lankan landscape"
                     className="w-full h-full object-cover"
                   />
@@ -336,109 +336,9 @@ export default function About() {
         </div>
       </section>
 
-      {/* Timeline */}
-      <section className="py-24 bg-background">
-        <div className="max-w-5xl mx-auto px-6">
-          <FadeIn className="text-center mb-16">
-            <span className="text-accent font-semibold tracking-wider uppercase text-sm mb-2 block">
-              Our Journey
-            </span>
-            <h2 className="font-serif text-4xl md:text-5xl font-bold text-text">
-              Milestones Along the Way
-            </h2>
-          </FadeIn>
+      
 
-          <div className="relative">
-            {/* Vertical line */}
-            <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary via-accent to-primary md:-translate-x-1/2"></div>
-
-            <div className="space-y-12">
-              {MILESTONES.map((m, i) => (
-                <FadeIn key={i} delay={i * 0.1} fullWidth>
-                  <div className={`flex items-center gap-6 md:gap-12 ${i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'}`}>
-                    
-                    {/* Year badge */}
-                    <div className="relative shrink-0 md:flex-1 md:flex md:justify-end">
-                      <div className={`md:max-w-xs ${i % 2 === 1 ? 'md:text-left' : 'md:text-right'}`}>
-                        <div className="hidden md:block font-serif text-4xl font-bold text-primary mb-1">
-                          {m.year}
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Dot */}
-                    <div className="relative z-10 shrink-0">
-                      <div className="w-8 h-8 rounded-full bg-accent ring-4 ring-background flex items-center justify-center">
-                        <div className="w-2 h-2 bg-white rounded-full"></div>
-                      </div>
-                    </div>
-
-                    {/* Content */}
-                    <div className="flex-1 md:max-w-xs">
-                      <div className="md:hidden font-serif text-2xl font-bold text-primary mb-1">
-                        {m.year}
-                      </div>
-                      <div className="bg-white p-5 rounded-2xl border border-gray-100 shadow-soft">
-                        <h4 className="font-bold text-text mb-2">{m.title}</h4>
-                        <p className="text-sm text-text-muted leading-relaxed">
-                          {m.desc}
-                        </p>
-                      </div>
-                    </div>
-
-                  </div>
-                </FadeIn>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Team */}
-      <section className="py-24 bg-surface">
-        <div className="max-w-7xl mx-auto px-6">
-          <FadeIn className="text-center mb-16">
-            <span className="text-accent font-semibold tracking-wider uppercase text-sm mb-2 block">
-              The People
-            </span>
-            <h2 className="font-serif text-4xl md:text-5xl font-bold text-text mb-4">
-              Meet Your Hosts
-            </h2>
-            <p className="text-text-muted text-lg max-w-2xl mx-auto">
-              A small, passionate team of locals who pour their hearts into
-              every journey.
-            </p>
-          </FadeIn>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {TEAM.map((member, i) => (
-              <FadeIn key={i} delay={i * 0.1} fullWidth>
-                <div className="group">
-                  <div className="aspect-[3/4] rounded-3xl overflow-hidden mb-5 relative">
-                    <img
-                      src={member.image}
-                      alt={member.name}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                    <div className="absolute bottom-0 left-0 right-0 p-5">
-                      <div className="font-serif text-xl font-bold text-white">
-                        {member.name}
-                      </div>
-                      <div className="text-accent text-sm font-semibold">
-                        {member.role}
-                      </div>
-                    </div>
-                  </div>
-                  <p className="text-text-muted text-sm leading-relaxed">
-                    {member.bio}
-                  </p>
-                </div>
-              </FadeIn>
-            ))}
-          </div>
-        </div>
-      </section>
+      
 
       {/* Why Travelers Choose Us */}
       <section className="py-24 bg-background">
@@ -447,7 +347,7 @@ export default function About() {
             <FadeIn direction="right">
               <div className="aspect-square rounded-3xl overflow-hidden shadow-2xl">
                 <img
-                  src="https://images.unsplash.com/photo-1566554273541-37a9ca77b91f?q=80&w=1974&auto=format&fit=crop"
+                  src="/public/images/pk.jpg"
                   alt="Sri Lankan stilt fishermen"
                   className="w-full h-full object-cover"
                 />
@@ -490,7 +390,7 @@ export default function About() {
       <section className="py-24 bg-primary relative overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
-            src="https://images.unsplash.com/photo-1588598198321-173bb255d450?q=80&w=2070&auto=format&fit=crop"
+            src="public/images/mklh.jpg"
             alt=""
             className="w-full h-full object-cover opacity-20"
           />
@@ -508,25 +408,26 @@ export default function About() {
               your dreams. Our team is just one conversation away.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
-                href="/#calculator"
+              <Link
+                to="/#calculator"
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-accent hover:bg-accent-hover text-white font-semibold text-lg transition-all hover:scale-105 shadow-lg shadow-accent/30"
               >
                 Plan Your Trip
                 <ArrowRight className="w-5 h-5" />
-              </a>
-              <a
-                href="/#contact"
+              </Link>
+              <Link
+                to="/contact"
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-white/10 hover:bg-white/20 text-white font-semibold text-lg backdrop-blur-md transition-all border border-white/20"
               >
                 Get in Touch
-              </a>
+              </Link>
             </div>
           </FadeIn>
         </div>
       </section>
 
-      <Footer />
+      
+
     </div>
   );
 }

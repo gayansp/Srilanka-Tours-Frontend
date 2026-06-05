@@ -42,7 +42,7 @@ export function Gallery({ limit }) {
       setPhotos(response.data.galleryImages);
     } catch (error) {
       console.error('Error fetching gallery images:', error);
-      toast.error('Failed to load gallery images');
+      toast.error('Somthing went wrong');
       setIsError(true);
     } finally {
       setIsLoading(false);
