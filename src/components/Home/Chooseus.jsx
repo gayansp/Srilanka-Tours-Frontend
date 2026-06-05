@@ -95,21 +95,7 @@ export function WhyChooseUs() {
                 <div className="bg-white/95 backdrop-blur-md p-6 rounded-2xl shadow-lg border border-white/20">
                   <div className="flex items-center gap-4 mb-2">
                     <div className="flex -space-x-3">
-                      <img
-                        src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop"
-                        className="w-10 h-10 rounded-full border-2 border-white object-cover"
-                        alt="User Avatar" 
-                      />
-                      <img
-                        src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&auto=format&fit=crop"
-                        className="w-10 h-10 rounded-full border-2 border-white object-cover"
-                        alt="User Avatar" 
-                      />
-                      <img
-                        src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop"
-                        className="w-10 h-10 rounded-full border-2 border-white object-cover"
-                        alt="User Avatar" 
-                      />
+                      
                     </div>
                     <div className="text-sm font-bold text-text text-slate-900">
                       15k+ Guests

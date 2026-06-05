@@ -10,9 +10,11 @@ import { Destinations } from '../components/Home/Destination'
 import { TourPackages } from '../components/Home/Tourpackages'
 import { Gallery } from '../components/Home/Gallery'
 import { Reviews } from '../components/Home/Reviews'
-import { Contactus } from '../components/Home/Contactus'
 import { PageWrapper } from '../components/PageWrapper'
 import { AnimatePresence, motion } from 'framer-motion'
+import About from './About'
+import Contactuss from './Contactuss'
+
 
 const Dashboard = () => {
   const location = useLocation();
@@ -37,8 +39,8 @@ const Dashboard = () => {
             <Route path='/destinations' element={<PageWrapper><Destinations /></PageWrapper>} />
             <Route path='/tours' element={<PageWrapper><TourPackages /></PageWrapper>} />
             <Route path='/gallery' element={<PageWrapper><Gallery /></PageWrapper>} />
-            <Route path='/about' element={<PageWrapper><Reviews /></PageWrapper>} />
-            <Route path='/contact' element={<PageWrapper><Contactus /></PageWrapper>} />
+            <Route path='/about' element={<PageWrapper><About /></PageWrapper>} />
+            <Route path='/contact' element={<PageWrapper><Contactuss /></PageWrapper>} />
             <Route path='/*' element={<PageWrapper><NotFound /></PageWrapper>} />
           </Routes>
         </AnimatePresence>

@@ -10,7 +10,6 @@ import {
   Bus
 } from 'lucide-react';
 import api from '../../api/axios';
-import toast from 'react-hot-toast';
 import ErrorPage from '../../pages/ErrorPage';
 import { BeatLoader } from 'react-spinners';
 
@@ -57,33 +56,31 @@ const fetchVehicles = async () => {
   }
   
 
-  const handleSubmit = async(e) => {
-    e.preventDefault();
-    
-    try {
-      setIsSubmitting(true);
-      const response = await api.post("inquery/add",{
-        startLocation,
-        endLocation,
-        vehicleName,
-        fullName,
-        contact,
-        date,
-        time
-      })
+  const handleSubmit = (e) => {
+  e.preventDefault();
+  setIsSubmitting(true);
 
-      toast.success('Inquiry sent successfully! We will contact you soon.');
+  const fullMessage = `
+ *New Trip Inquiry*
 
+ - Start Location: ${startLocation}
+ - End Location: ${endLocation}
+ - Vehicle: ${vehicleName}
 
-    } catch (error) {
-      setIsError(true);
-      toast.error('Something went wrong!');
-      console.error('Error submitting inquiry:', error);
-    } finally {
-      setIsSubmitting(false);
-    }
-    
-  };
+ - Name: ${fullName}
+ - Contact: ${contact}
+
+ - Date: ${date}
+ - Time: ${time}
+  `;
+
+  const whatsappUrl = `https://wa.me/94706000344?text=${encodeURIComponent(fullMessage)}`;
+
+  setTimeout(() => {
+    setIsSubmitting(false);
+    window.open(whatsappUrl, "_blank");
+  }, 600);
+};
 
   useEffect(() => {
     fetchVehicles();

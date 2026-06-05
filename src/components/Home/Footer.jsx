@@ -92,17 +92,17 @@ const Footer = () => {
             <h4 className="text-white font-semibold text-sm mb-5">Contact Us</h4>
             <ul className="flex flex-col gap-4">
               <li className="flex items-start gap-3 text-white/50 text-sm">
-                <span>📍</span> Mirissa, Sri Lanka
+                <span>📍</span> Udawalawa, Sri Lanka
               </li>
               <li className="flex items-start gap-3 text-white/50 text-sm">
-                <span>📞</span> +94 71 576 9900
+                <span>📞</span> +94 70 600 0344
               </li>
               <li className="flex items-start gap-3 text-white/50 text-sm">
-                <span>✉️</span> info@srilankatours.lk
+                <span>✉️</span>srilankatours@gmail.com
               </li>
               <li>
                 <a
-                  href="https://wa.me/94715769900"
+                  href="https://wa.me/94706000344"
                   target="_blank"
                   rel="noreferrer"
                   className="flex items-center gap-3 text-white/50 hover:text-[#25d366] text-sm transition-colors"
