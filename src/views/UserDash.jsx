@@ -1,3 +1,5 @@
+"use client";
+
 import React from 'react'
 import Hero from '../components/Home/Hero'
 import { Calculator } from '../components/Home/Calculator'

@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from 'react';
 import {
   MapPin,
@@ -105,11 +107,11 @@ const fetchVehicles = async () => {
         {/* Animated Header Component Container */}
         <div className="text-center mb-16 animate-in fade-in slide-in-from-bottom-4 duration-700 ease-out fill-mode-forwards">
           <h2 className="font-serif text-4xl md:text-5xl font-bold text-slate-900 mb-4">
-            Calculate Your Trip
+            Sri Lanka Tour & Driver Cost Calculator
           </h2>
           <p className="text-cyan-800 max-w-2xl mx-auto text-lg">
-            Get an instant estimate for your journey across Sri Lanka.
-            Choose your route, pick a vehicle, and let's get started.
+            Get an instant budget estimate for your custom Sri Lanka tours. Plan your Ella travels,
+            Udawalawa tours, or full island private transport service with SL Travels today.
           </p>
         </div>
 

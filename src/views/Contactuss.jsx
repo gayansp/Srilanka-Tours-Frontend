@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from 'react';
 import { MapPin, Phone, Mail, Send, CheckCircle2 } from 'lucide-react';
 import { FadeIn } from '../components/Home/FadeIn';
@@ -44,10 +46,10 @@ ${message}
         {/* HEADER */}
         <FadeIn className="text-center mb-16">
           <h2 className="font-serif text-4xl md:text-5xl font-bold text-text mb-4">
-            Start Planning Your Trip
+            Start Planning Your Sri Lanka Tour
           </h2>
           <p className="text-text-muted text-lg">
-            Contact us for tours, safaris & bookings
+            Contact SL Travels for Udawalawa tours, Ella travels, and bespoke Ceylon safari bookings.
           </p>
         </FadeIn>
 

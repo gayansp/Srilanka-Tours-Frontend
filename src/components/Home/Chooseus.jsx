@@ -50,9 +50,9 @@ export function WhyChooseUs() {
               Your Trusted Partner in Sri Lanka
             </h2>
             <p className="text-text-muted text-slate-600 text-lg mb-8 leading-relaxed">
-              With over a decade of experience, Udawala Tours has been
+              With over a decade of experience, Udawala Tours (your trusted agency for Udawalawa tours, Ella travels, and SL Travels) has been
               crafting unforgettable journeys across the island. We believe in
-              sustainable tourism, supporting local communities, and providing
+              sustainable Sri Lanka tourism, supporting local communities, and providing
               our guests with genuine, heartfelt Sri Lankan hospitality.
             </p>
 
@@ -84,7 +84,7 @@ export function WhyChooseUs() {
             <div className="relative rounded-3xl overflow-hidden aspect-[4/5] shadow-2xl">
               <img
                 src="/images/WhatsApp Image 2026-05-27 at 13.45.51.jpeg"
-                alt="Sri Lankan Guide"
+                alt="Experienced tour driver guide in Sri Lanka - SL Travels"
                 className="w-full h-full object-cover transition-transform duration-700 hover:scale-105" 
               />
               

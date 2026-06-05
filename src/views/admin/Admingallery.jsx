@@ -7,6 +7,7 @@ import ErrorPage from '../ErrorPage';
 
 export default function Admingaller() {
   const [photos, setPhotos] = useState([]);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
   const [imageUrl, setImageUrl] = useState('');
@@ -14,10 +15,14 @@ export default function Admingaller() {
   const [preview, setPreview] = useState('');
   const [isError, setIsError] = useState(false);
 
+
+
   // ─── Fetch Gallery ───────────────────────────────────────────────────────────
   const fetchGallery = async () => {
     try {
       const response = await api.get("gallery/get");
+
+
       setPhotos(response.data.galleryImages);
     } catch (error) {
       console.error('Error fetching gallery images:', error);
@@ -42,7 +47,7 @@ export default function Admingaller() {
       formData.append('image', file);
 
       const response = await api.post("imageUpload", formData);
-      
+
       setImageUrl(response.data.url);
       toast.success('Image uploaded successfully');
 
@@ -112,13 +117,13 @@ export default function Admingaller() {
     return <ErrorPage />;
   }
 
- 
+
 
   return (
     <div className="space-y-6 max-w-7xl">
 
 
-      
+
       {/* HEADER */}
       <div className="flex justify-between items-center">
         <div className="text-sm text-text-muted">

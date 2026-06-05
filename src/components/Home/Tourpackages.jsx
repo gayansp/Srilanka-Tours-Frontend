@@ -57,11 +57,11 @@ export function TourPackages() {
             Curated Experiences
           </span>
           <h2 className="font-serif text-4xl md:text-5xl font-bold text-text text-slate-900 mb-4">
-            Travel Packages
+            Sri Lanka Tour Packages & Travels
           </h2>
           <p className="text-text-muted text-slate-600 max-w-2xl mx-auto text-lg">
-            Carefully crafted itineraries that showcase the best of Sri Lanka.
-            From quick getaways to comprehensive island tours.
+            Carefully crafted itineraries by SL Travels that showcase the best of Sri Lanka.
+            Enjoy scenic Ella travels, wild Udawalawa tours, pristine beaches, and ancient cultural heritage.
           </p>
         </div>
 

@@ -1,11 +1,13 @@
+"use client";
+
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { FadeIn } from './FadeIn';
 
 const slides = [
-  { image: '/images/elephant-riding-in-sigiriya.webp', tag: '#1 Safari Experience in Sri Lanka' },
-  { image: '/images/sigiriya-elephant-rides-sri-lanka.webp', tag: 'Explore Ancient Wonders' },
-  { image: '/images/uil.jpg', tag: 'Pristine Beaches Await' },
+  { image: '/images/elephant-riding-in-sigiriya.webp', tag: '#1 Udawalawa Tours & Wildlife Safari' },
+  { image: '/images/sigiriya-elephant-rides-sri-lanka.webp', tag: 'Sri Lanka Tours & Ella Travels' },
+  { image: '/images/uil.jpg', tag: 'SL Travels & Tropical Ceylon Beaches' },
 ];
 
 const Hero = () => {
@@ -46,13 +48,12 @@ const Hero = () => {
   <span className="text-[clamp(44px,6.5vw,80px)] block">
     Sri Lanka Tours
   </span>
-  <span className="text-accent block">and Safari</span>
+  <span className="text-accent block">Ella & Udawalawa Safari</span>
 </h1>
 
         <p className="font-sans text-base text-white/75 leading-[1.7] mb-[30px] max-w-[460px]">
-          Experience unforgettable adventures across Sri Lanka's most breathtaking
-          destinations. Ancient temples, pristine beaches, lush highlands — we make
-          every journey unforgettable.
+          Experience unforgettable adventures with SL Travels. Book your Udawalawa tours,
+          scenic Ella travels, national park safaris, and custom Sri Lanka travelling packages today.
         </p>
 
         <div className="flex gap-3 flex-wrap mb-10 max-md:flex-col">

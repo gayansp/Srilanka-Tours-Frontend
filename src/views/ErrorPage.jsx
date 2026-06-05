@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from 'react';
 import { WifiOff, RefreshCw, ArrowLeft, CircleCheck } from 'lucide-react';
 

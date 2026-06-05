@@ -1,3 +1,5 @@
+"use client";
+
 import Link from 'next/link';
 // import { motion } from 'framer-motion';
 import {
@@ -137,15 +139,14 @@ export default function About() {
             </FadeIn>
             <FadeIn delay={0.2}>
               <h1 className="font-serif text-5xl md:text-7xl font-bold text-white leading-tight mb-6">
-                Crafting Journeys, <br />
-                <span className="italic text-accent">Sharing Sri Lanka</span>
+                Sri Lanka Tours, <br />
+                <span className="italic text-accent">Ella & Udawalawa Travels</span>
               </h1>
             </FadeIn>
             <FadeIn delay={0.4}>
               <p className="text-lg md:text-xl text-white/90 leading-relaxed max-w-2xl">
-                For over a decade, we've been more than a travel agency — we're
-                storytellers, cultural ambassadors, and proud custodians of the
-                most beautiful island on earth.
+                For over a decade, SL Travels has been more than just a tour operator. We are
+                storytellers, local driver guides, and your premier partner for custom Sri Lanka travelling.
               </p>
             </FadeIn>
           </div>
@@ -165,21 +166,21 @@ export default function About() {
               </h2>
               <div className="space-y-5 text-text-muted leading-relaxed text-lg">
                 <p>
-                  Udawala Tours was born in 2014 in a small village near the
-                  Udawalawe National Park. Our founder, Kasun, grew up watching
+                  Udawala Tours (also known as SL Travels) was born in 2014 in a small village near the
+                  Udawalawe National Park. Our founder, Mayura Sandeep, grew up watching
                   travelers pass through his hometown — captivated by elephants
                   and tea fields but often missing the deeper stories that made
-                  Sri Lanka truly extraordinary.
+                  Sri Lanka tourism truly extraordinary.
                 </p>
                 <p>
-                  He started with one van, a notebook full of hidden gems, and
-                  an unshakable belief that travel should connect people, not
-                  just transport them. A decade later, that same belief drives
-                  everything we do.
+                  He started with one van, a notebook full of hidden gems in Ella and Udawalawa, and
+                  an unshakable belief that Sri Lanka tours should connect people, not
+                  just transport them. A decade later, that same belief drives our Ella travels,
+                  Udawalawa tours, and private driver services.
                 </p>
                 <p>
                   Today, we're a team of 30+ guides, drivers, and travel
-                  designers — all locals, all storytellers, all passionate about
+                  designers — all locals, all passionate about
                   showing you the Sri Lanka we love.
                 </p>
               </div>
@@ -187,7 +188,7 @@ export default function About() {
               <div className="mt-8 pt-8 border-t border-gray-100 flex items-center gap-4">
                 <img
                   src="/images/WhatsApp Image 2026-05-27 at 13.46.05.jpeg"
-                  alt="Founder signature"
+                  alt="Founder Mayura Sandeep"
                   className="w-16 h-16 rounded-full object-cover border-2 border-accent"
                 />
                 <div>
@@ -204,7 +205,7 @@ export default function About() {
                 <div className="aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl">
                   <img
                     src="/images/WhatsApp Image 2026-05-27 at 13.46.02.jpeg"
-                    alt="Sri Lankan landscape"
+                    alt="Beautiful Sri Lanka Tourism Landscapes"
                     className="w-full h-full object-cover"
                   />
                 </div>

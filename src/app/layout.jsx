@@ -1,140 +1,116 @@
-"use client";
-
-import { useState, useEffect } from 'react';
-import { usePathname } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Toaster } from 'react-hot-toast';
+import { ClientProviders } from '../components/ClientProviders';
 import '../index.css';
 
+export const metadata = {
+  title: "Udawalawe Safari & Tours | Sri Lanka Tours & Ella Travels",
+  description: "Experience premium wild safari tours and tailor-made holidays in Sri Lanka. Book your Udawalawa tours, Ella travels, SL travels, vehicle rentals, and explore top Sri Lankan tourist destinations.",
+  keywords: [
+    "SL Travels",
+    "Ella Travels",
+    "Udawalawa Tours",
+    "Sri Lanka Tours",
+    "Srilanka Tourism",
+    "Sri Lanka Travelling",
+    "Udawalawe Safari Booking",
+    "Ella Day Tours",
+    "Sri Lanka Travel Agent",
+    "Sri Lanka Vacation Packages",
+    "Ceylon Travels",
+    "Sri Lanka Driver Hire"
+  ],
+  authors: [{ name: "Udawalawe Safari & Tours" }],
+  creator: "Udawalawe Safari & Tours",
+  publisher: "Udawalawe Safari & Tours",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  alternates: {
+    canonical: "https://www.udawalawetours.com",
+  },
+  openGraph: {
+    title: "Udawalawe Safari & Tours | Sri Lanka Tours & Travels",
+    description: "Book customized holiday tours in Sri Lanka, wild safari packages, and private vehicle drivers. Experience Ella travels, Udawalawa tours, and SL travels.",
+    url: "https://www.udawalawetours.com",
+    siteName: "Udawalawe Safari & Tours",
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Udawalawe Safari & Tours | Sri Lanka Tours & Travels",
+    description: "Book customized holiday tours in Sri Lanka, wild safari packages, and private vehicle drivers. Experience Ella travels, Udawalawa tours, and SL travels.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+};
+
+const travelAgencySchema = {
+  "@context": "https://schema.org",
+  "@type": "TravelAgency",
+  "name": "Udawalawe Safari & Tours",
+  "alternateName": ["SL Travels", "Ella Travels", "Udawalawa Tours", "Lanka Tours", "Sri Lanka Tours"],
+  "image": "https://www.udawalawetours.com/images/udawalawe_tours_hq(2).png",
+  "url": "https://www.udawalawetours.com",
+  "telephone": "+94706000344",
+  "priceRange": "$$",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Udawalawa National Park Road",
+    "addressLocality": "Udawalawa",
+    "addressRegion": "Sabaragamuwa Province",
+    "postalCode": "70190",
+    "addressCountry": "LK"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 6.4429,
+    "longitude": 80.8524
+  },
+  "openingHoursSpecification": {
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday"
+    ],
+    "opens": "00:00",
+    "closes": "23:59"
+  },
+  "sameAs": [
+    "https://www.facebook.com/udawalawesafariandtours",
+    "https://www.instagram.com/udawalawesafariandtours"
+  ]
+};
+
 export default function RootLayout({ children }) {
-  const [initialLoading, setInitialLoading] = useState(true);
-  const pathname = usePathname();
-  const [navTransition, setNavTransition] = useState(false);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setInitialLoading(false);
-    }, 1800);
-    return () => clearTimeout(timer);
-  }, []);
-
-  useEffect(() => {
-    if (!initialLoading) {
-      setNavTransition(true);
-      const timer = setTimeout(() => {
-        setNavTransition(false);
-      }, 550);
-      return () => clearTimeout(timer);
-    }
-  }, [pathname, initialLoading]);
-
   return (
     <html lang="en">
       <head>
-        <meta charSet="UTF-8" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Udawalawe Safari & Tours</title>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(travelAgencySchema) }}
+        />
       </head>
       <body className="antialiased">
-        <Toaster />
-        <AnimatePresence mode="wait">
-          {initialLoading ? (
-            <motion.div
-              key="splash"
-              initial={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.5, ease: "easeInOut" }}
-              className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-gradient-to-tr from-[#1a3a2a] via-[#122b1f] to-[#0a2217] text-white"
-            >
-              <div className="flex flex-col items-center gap-6 max-w-sm px-6 text-center">
-                <motion.img
-                  initial={{ scale: 0.5, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ 
-                    duration: 0.8, 
-                    ease: [0.34, 1.56, 0.64, 1] 
-                  }}
-                  src="/images/udawalawe_tours_hq(2).png"
-                  alt="Udawalawe Tours Logo"
-                  className="h-32 w-auto object-contain drop-shadow-[0_0_20px_rgba(255,255,255,0.15)] bg-white/10 p-4 rounded-3xl backdrop-blur-md"
-                />
-                
-                <div className="flex flex-col items-center w-full gap-3 mt-2">
-                  <div className="w-48 h-[3px] bg-white/10 rounded-full overflow-hidden relative">
-                    <motion.div
-                      initial={{ left: "-100%" }}
-                      animate={{ left: "100%" }}
-                      transition={{ duration: 1.2, ease: "easeInOut", delay: 0.3 }}
-                      className="absolute top-0 bottom-0 w-1/2 bg-amber-500 rounded-full shadow-[0_0_8px_#f59e0b]"
-                    />
-                  </div>
-                  <motion.p
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.6, duration: 0.5 }}
-                    className="text-xs tracking-[0.25em] text-emerald-400 font-bold uppercase select-none"
-                  >
-                    Explore Sri Lanka
-                  </motion.p>
-                </div>
-              </div>
-            </motion.div>
-          ) : (
-            <motion.div
-              key="content"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5 }}
-              className="min-h-screen"
-            >
-              {children}
-            </motion.div>
-          )}
-        </AnimatePresence>
-
-        {/* Navigation transition overlay */}
-        <AnimatePresence>
-          {navTransition && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.15 }}
-              className="fixed inset-0 z-50 flex items-center justify-center bg-white/90 backdrop-blur-sm pointer-events-none"
-            >
-              <motion.div
-                initial={{ scale: 0.75, opacity: 0 }}
-                animate={{ 
-                  scale: [0.75, 1.05, 1], 
-                  opacity: 1,
-                  filter: [
-                    "drop-shadow(0 0 0px rgba(16,185,129,0))", 
-                    "drop-shadow(0 0 12px rgba(16,185,129,0.25))", 
-                    "drop-shadow(0 0 0px rgba(16,185,129,0))"
-                  ]
-                }}
-                exit={{ scale: 0.9, opacity: 0 }}
-                transition={{ duration: 0.5, ease: "easeInOut" }}
-                className="flex flex-col items-center gap-4"
-              >
-                <img 
-                  src="/images/udawalawe_tours_hq(2).png" 
-                  alt="Transition Logo" 
-                  className="h-20 w-auto object-contain select-none"
-                />
-                <div className="w-16 h-[2px] bg-[#1a3a2a]/10 rounded-full overflow-hidden relative">
-                  <motion.div
-                    initial={{ left: "-100%" }}
-                    animate={{ left: "100%" }}
-                    transition={{ repeat: Infinity, duration: 0.8, ease: "linear" }}
-                    className="absolute top-0 bottom-0 w-1/2 bg-emerald-600 rounded-full"
-                  />
-                </div>
-              </motion.div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+        <ClientProviders>
+          {children}
+        </ClientProviders>
       </body>
     </html>
   );

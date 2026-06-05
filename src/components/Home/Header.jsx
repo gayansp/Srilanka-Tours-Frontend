@@ -53,7 +53,7 @@ const Header = () => {
 
         {/* Logo */}
         <Link href="/" className="font-playfair text-[22px] text-primary no-underline shrink-0 select-none group">
-          <img src="/images/udawalawe_tours_hq(2).png" alt="Lanka Tours" className="h-20 w-auto object-contain transition-transform duration-300 group-hover:scale-[1.04]" />
+          <img src="/images/udawalawe_tours_hq(2).png" alt="Udawalawe Tours | Sri Lanka Tours & Ella Travels" className="h-20 w-auto object-contain transition-transform duration-300 group-hover:scale-[1.04]" />
         </Link>
 
         {/* Nav links */}

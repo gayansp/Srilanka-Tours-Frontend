@@ -30,14 +30,14 @@ const Footer = () => {
             <Link href="/">
               <img
                 src="/images/udawalawe_tours_hq(2).png"
-                alt="Lanka Tours"
+                alt="Udawalawe Tours | Sri Lanka Tours & Ella Travels"
                 className="h-12 mb-4"
               />
             </Link>
             <p className="text-white/50 text-sm leading-relaxed mb-5">
-              Your premier safari partner in Sri Lanka. Experience the wonder of
-              Sri Lanka's national parks with our expert guides and unforgettable
-              adventures.
+              Your premier tour operator and safari partner in Sri Lanka. Experience the wonder of
+              Sri Lanka tours, Ella travels, Udawalawa tours, and custom Ceylon vacation itineraries
+              with our expert local driver guides.
             </p>
             {/* Social icons */}
             <div className="flex gap-3">
