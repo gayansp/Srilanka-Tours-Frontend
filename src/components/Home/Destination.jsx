@@ -1,6 +1,6 @@
 import React from 'react';
 import { ArrowRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 
 const DESTINATIONS = [
@@ -15,28 +15,28 @@ const DESTINATIONS = [
     id: 2,
     name: 'Ella',
     tagline: 'Misty Mountains & Tea',
-    image: 'public/images/ella2.jpg',
+    image: '/images/ella2.jpg',
     colSpan: 'md:col-span-1 md:row-span-1'
   },
   {
     id: 3,
     name: 'Galle',
     tagline: 'Colonial Charm & Coast',
-    image: 'public/images/galle.jpg',
+    image: '/images/galle.jpg',
     colSpan: 'md:col-span-1 md:row-span-1'
   },
   {
     id: 4,
     name: 'Yala',
     tagline: 'Wildlife & Leopards',
-    image: 'public/images/yala.jpg',
+    image: '/images/yala.jpg',
     colSpan: 'md:col-span-1 md:row-span-1'
   },
   {
     id: 5,
     name: 'Mirissa',
     tagline: 'Whales & Golden Sands',
-    image: 'public/images/mirissa.jpg',
+    image: '/images/mirissa.jpg',
     colSpan: 'md:col-span-1 md:row-span-1'
   }
 ];
@@ -87,7 +87,7 @@ export function Destinations() {
             </p>
           </div>
           {/* Added text-blue-600 fallback for text-primary */}
-          <Link to="/destinations" className="inline-flex items-center gap-2 text-primary text-blue-600 font-semibold hover:text-emerald-600 transition-colors group no-underline">
+          <Link href="/destinations" className="inline-flex items-center gap-2 text-primary text-blue-600 font-semibold hover:text-emerald-600 transition-colors group no-underline">
             View All Destinations
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </Link>

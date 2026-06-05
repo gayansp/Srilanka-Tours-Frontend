@@ -16,7 +16,7 @@ export function Contactus() {
       {/* Background Image Asset with Rich Dark Overlay Layer */}
       <div className="absolute inset-0 z-0">
         <img
-          src="public/images/MinneriyaNationalParkPrivateJeepElephant’sSafari.jpg"
+          src="/images/MinneriyaNationalParkPrivateJeepElephant’sSafari.jpg"
           alt="Sri Lankan Safari Bus Background"
           className="h-full w-full object-cover opacity-3000 transition-transform duration-1000 select-none scale-105"
         />

@@ -83,7 +83,7 @@ export function WhyChooseUs() {
           <div className="relative animate-in fade-in slide-in-from-right-8 duration-1000 ease-out fill-mode-forwards delay-150">
             <div className="relative rounded-3xl overflow-hidden aspect-[4/5] shadow-2xl">
               <img
-                src="public/images/WhatsApp Image 2026-05-27 at 13.45.51.jpeg"
+                src="/images/WhatsApp Image 2026-05-27 at 13.45.51.jpeg"
                 alt="Sri Lankan Guide"
                 className="w-full h-full object-cover transition-transform duration-700 hover:scale-105" 
               />

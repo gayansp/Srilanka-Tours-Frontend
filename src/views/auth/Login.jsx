@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import api from '../../api/axios';
 
 const Login = () => {
@@ -7,7 +8,7 @@ const Login = () => {
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
-    const navigate = useNavigate();
+    const router = useRouter();
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -23,9 +24,9 @@ const Login = () => {
             localStorage.setItem("role", result.data.role);
 
             if (result.data.role === 'admin') {
-                navigate('/admin');
+                router.push('/admin');
             } else {
-                navigate('/');
+                router.push('/');
             }
         } catch (error) {
             console.error("Login failed:", error);
@@ -50,7 +51,7 @@ const Login = () => {
             <div className="flex-1 flex flex-col justify-center items-center p-8 bg-white max-md:px-6 max-md:py-8 max-md:min-h-screen">
                 <div className="w-full max-w-[400px]">
                     <div className="mb-8 text-center">
-                        <Link to="/">
+                        <Link href="/">
                             <img src="/images/udawalawe_tours_hq(2).png" alt="Lanka Tours" className="h-[70px] object-contain mx-auto" />
                         </Link>
                     </div>
@@ -97,7 +98,7 @@ const Login = () => {
                     </form>
 
                     <div className="mt-8 text-center text-sm text-slate-500">
-                        Don't have an account? <Link to="/register" className="text-accent no-underline font-medium transition-colors duration-200 hover:text-accent-hover">Sign up</Link>
+                        Don't have an account? <Link href="/register" className="text-accent no-underline font-medium transition-colors duration-200 hover:text-accent-hover">Sign up</Link>
                     </div>
                 </div>
             </div>

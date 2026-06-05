@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 
 const Footer = () => {
   const quickLinks = [
@@ -27,7 +27,7 @@ const Footer = () => {
 
           {/* Brand */}
           <div>
-            <Link to="/">
+            <Link href="/">
               <img
                 src="/images/udawalawe_tours_hq(2).png"
                 alt="Lanka Tours"
@@ -60,7 +60,7 @@ const Footer = () => {
               {quickLinks.map(link => (
                 <li key={link.to}>
                   <Link
-                    to={link.to}
+                    href={link.to}
                     className="text-white/50 hover:text-[#d97706] text-sm transition-colors"
                   >
                     {link.label}
@@ -77,7 +77,7 @@ const Footer = () => {
               {destinations.map((d, i) => (
                 <li key={i}>
                   <Link
-                    to="/destinations"
+                    href="/destinations"
                     className="text-white/50 hover:text-[#d97706] text-sm transition-colors"
                   >
                     {d}

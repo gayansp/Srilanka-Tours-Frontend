@@ -1,5 +1,4 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 // import { motion } from 'framer-motion';
 import {
   Compass,
@@ -122,7 +121,7 @@ export default function About() {
       <section className="relative pt-32 pb-20 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
-            src="/public/images/LK710AA01F-03-E.webp"
+            src="/images/LK710AA01F-03-E.webp"
             alt="Sri Lankan tea fields"
             className="w-full h-full object-cover"
           />
@@ -187,7 +186,7 @@ export default function About() {
 
               <div className="mt-8 pt-8 border-t border-gray-100 flex items-center gap-4">
                 <img
-                  src="public/images/WhatsApp Image 2026-05-27 at 13.46.05.jpeg"
+                  src="/images/WhatsApp Image 2026-05-27 at 13.46.05.jpeg"
                   alt="Founder signature"
                   className="w-16 h-16 rounded-full object-cover border-2 border-accent"
                 />
@@ -204,7 +203,7 @@ export default function About() {
               <div className="relative">
                 <div className="aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl">
                   <img
-                    src="public/images/WhatsApp Image 2026-05-27 at 13.46.02.jpeg"
+                    src="/images/WhatsApp Image 2026-05-27 at 13.46.02.jpeg"
                     alt="Sri Lankan landscape"
                     className="w-full h-full object-cover"
                   />
@@ -347,7 +346,7 @@ export default function About() {
             <FadeIn direction="right">
               <div className="aspect-square rounded-3xl overflow-hidden shadow-2xl">
                 <img
-                  src="/public/images/pk.jpg"
+                  src="/images/pk.jpg"
                   alt="Sri Lankan stilt fishermen"
                   className="w-full h-full object-cover"
                 />
@@ -390,7 +389,7 @@ export default function About() {
       <section className="py-24 bg-primary relative overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
-            src="public/images/mklh.jpg"
+            src="/images/mklh.jpg"
             alt=""
             className="w-full h-full object-cover opacity-20"
           />
@@ -409,14 +408,14 @@ export default function About() {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
-                to="/#calculator"
+                href="/#calculator"
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-accent hover:bg-accent-hover text-white font-semibold text-lg transition-all hover:scale-105 shadow-lg shadow-accent/30"
               >
                 Plan Your Trip
                 <ArrowRight className="w-5 h-5" />
               </Link>
               <Link
-                to="/contact"
+                href="/contact"
                 className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-white/10 hover:bg-white/20 text-white font-semibold text-lg backdrop-blur-md transition-all border border-white/20"
               >
                 Get in Touch

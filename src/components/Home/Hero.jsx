@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { FadeIn } from './FadeIn';
 
 const slides = [
-  { image: '/public/images/elephant-riding-in-sigiriya.webp', tag: '#1 Safari Experience in Sri Lanka' },
-  { image: '/public/images/sigiriya-elephant-rides-sri-lanka.webp', tag: 'Explore Ancient Wonders' },
-  { image: '/public/images/uil.jpg', tag: 'Pristine Beaches Await' },
+  { image: '/images/elephant-riding-in-sigiriya.webp', tag: '#1 Safari Experience in Sri Lanka' },
+  { image: '/images/sigiriya-elephant-rides-sri-lanka.webp', tag: 'Explore Ancient Wonders' },
+  { image: '/images/uil.jpg', tag: 'Pristine Beaches Await' },
 ];
 
 const Hero = () => {
@@ -59,7 +59,7 @@ const Hero = () => {
           <a href="#calculator" className="font-sans text-[15px] font-medium bg-accent hover:bg-accent-hover text-white px-[26px] py-[13px] rounded-lg no-underline transition-all duration-200 hover:-translate-y-[2px] text-center">
             Calculate Trip Cost
           </a>
-          <Link to="/tours" className="font-sans text-[15px] font-medium bg-white/12 border border-white/30 text-white px-[26px] py-[13px] rounded-lg no-underline backdrop-blur-[8px] transition-all duration-200 hover:-translate-y-[2px] hover:bg-white/22 text-center">
+          <Link href="/tours" className="font-sans text-[15px] font-medium bg-white/12 border border-white/30 text-white px-[26px] py-[13px] rounded-lg no-underline backdrop-blur-[8px] transition-all duration-200 hover:-translate-y-[2px] hover:bg-white/22 text-center">
             Explore Packages
           </Link>
         </div>
@@ -67,9 +67,9 @@ const Hero = () => {
         <div className="flex items-center gap-7 flex-wrap">
           <div className="flex items-center gap-2.5 font-sans text-xs text-white/80">
             <div className="flex">
-              <img src="/public/images/WhatsApp Image 2026-05-27 at 13.45.42.jpeg" alt="" className="w-8 h-8 rounded-full border-2 border-white -ml-2 first:ml-0 object-cover bg-[#2d5a3d]" />
-              <img src="/public/images/WhatsApp Image 2026-05-27 at 13.45.46.jpeg" alt="" className="w-8 h-8 rounded-full border-2 border-white -ml-2 first:ml-0 object-cover bg-[#2d5a3d]" />
-              <img src="/public/images/WhatsApp Image 2026-05-27 at 13.45.33.jpeg" alt="" className="w-8 h-8 rounded-full border-2 border-white -ml-2 first:ml-0 object-cover bg-[#2d5a3d]" />
+              <img src="/images/WhatsApp Image 2026-05-27 at 13.45.42.jpeg" alt="" className="w-8 h-8 rounded-full border-2 border-white -ml-2 first:ml-0 object-cover bg-[#2d5a3d]" />
+              <img src="/images/WhatsApp Image 2026-05-27 at 13.45.46.jpeg" alt="" className="w-8 h-8 rounded-full border-2 border-white -ml-2 first:ml-0 object-cover bg-[#2d5a3d]" />
+              <img src="/images/WhatsApp Image 2026-05-27 at 13.45.33.jpeg" alt="" className="w-8 h-8 rounded-full border-2 border-white -ml-2 first:ml-0 object-cover bg-[#2d5a3d]" />
             </div>
             <span>2,500+ Happy Travelers</span>
           </div>

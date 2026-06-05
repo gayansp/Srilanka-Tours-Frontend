@@ -10,7 +10,7 @@ import {
   Bus
 } from 'lucide-react';
 import api from '../../api/axios';
-import ErrorPage from '../../pages/ErrorPage';
+import ErrorPage from '../../views/ErrorPage';
 import { BeatLoader } from 'react-spinners';
 
 
