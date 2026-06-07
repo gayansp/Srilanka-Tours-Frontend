@@ -14,6 +14,7 @@ import { PageWrapper } from '../components/PageWrapper'
 import { AnimatePresence, motion } from 'framer-motion'
 import About from './About'
 import Contactuss from './Contactuss'
+import { Tourdetails } from '../components/Home/Tourdetails'
 
 
 const Dashboard = () => {
@@ -42,6 +43,7 @@ const Dashboard = () => {
             <Route path='/about' element={<PageWrapper><About /></PageWrapper>} />
             <Route path='/contact' element={<PageWrapper><Contactuss /></PageWrapper>} />
             <Route path='/*' element={<PageWrapper><NotFound /></PageWrapper>} />
+            <Route path="/tour-details/:id" element={<PageWrapper><Tourdetails /></PageWrapper>} />
           </Routes>
         </AnimatePresence>
       </main>
