@@ -8,12 +8,8 @@ import Admingaller from '../admin/Admingallery'
 import AdminTours from './Tours'
 import AdminDash from './Admin'
 import Vehicle from './Vehicle'
-
-
-
-
-
-
+import AddTours from './AddTours'
+import EditTours from './EditTours'
 
 
 const AdminDashboard = () => {
@@ -28,6 +24,8 @@ const AdminDashboard = () => {
         <Route path='/gallery' element={<Admingaller />} />
         <Route path='/Tours' element={<AdminTours />} />
         <Route path='/*' element={<NoFound />} />
+        <Route path="/add-tour" element={<AddTours />} />
+        <Route path="/edit-tour/:id" element={<EditTours />} />
       </Routes>
       </div>
     </div>
