@@ -29,7 +29,7 @@ const cardVariants = {
   }
 };
 
-export function Destinations() {
+export function Destinations({ showViewAll = true }) {
   const [allDestinations, setAllDestinations] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -75,10 +75,12 @@ export function Destinations() {
               breathtaking locations our beautiful island has to offer.
             </p>
           </div>
-          <Link href="/destinations" className="inline-flex items-center gap-2 text-primary text-blue-600 font-semibold hover:text-emerald-600 transition-colors group no-underline">
-            View All Destinations
-            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-          </Link>
+          {showViewAll && (
+            <Link href="/destinations" className="inline-flex items-center gap-2 text-primary text-blue-600 font-semibold hover:text-emerald-600 transition-colors group no-underline">
+              View All Destinations
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          )}
         </div>
 
         <motion.div 

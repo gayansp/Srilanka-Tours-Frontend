@@ -17,7 +17,7 @@ export const metadata = {
 export default function DestinationsPage() {
   return (
     <PageWrapper>
-      <Destinations />
+      <Destinations showViewAll={false} />
     </PageWrapper>
   );
 }
