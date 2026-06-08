@@ -310,19 +310,14 @@ export function Tourdetails() {
                     </div>
                   </div>
     
-                  <Link
-                    href="/#contact"
-                    className="w-full py-4 rounded-xl bg-primary hover:bg-primary-light text-white font-semibold flex items-center justify-center gap-2 transition-colors mb-3">
-                    
-                    Book This Tour
-                    <ArrowRight className="w-4 h-4" />
-                  </Link>
                   <a
-                    href="tel:+94771234567"
-                    className="w-full py-4 rounded-xl bg-primary/5 hover:bg-primary/10 text-primary font-semibold flex items-center justify-center gap-2 transition-colors">
+                    href="https://wa.me/94706000344?text=Hi%20I%20am%20interested%20in%20booking%20this%20tour%20package"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-full py-4 rounded-xl bg-primary hover:bg-primary-light text-white font-semibold flex items-center justify-center gap-2 transition-colors">
                     
-                    <Phone className="w-4 h-4" />
-                    Call to Enquire
+                    Book This Tour on WhatsApp
+                    <ArrowRight className="w-4 h-4" />
                   </a>
                 </div>
               </aside>
