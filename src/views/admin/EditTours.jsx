@@ -229,7 +229,7 @@ const EditTours = () => {
             </div>
 
             <div className="flex flex-col gap-1">
-              <label className="text-xs font-semibold text-gray-500">Price (Rs.)</label>
+              <label className="text-xs font-semibold text-gray-500">Price </label>
               <input
                 name="pricePerPerson"
                 value={form.pricePerPerson}
