@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'https://srilanka-tours-backend.vercel.app/api',
+    baseURL: 'https://srilanka-tours-backend-production.up.railway.app/api',
 });
 
 api.interceptors.request.use((config) => {
