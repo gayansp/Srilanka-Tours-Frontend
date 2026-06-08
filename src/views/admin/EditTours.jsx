@@ -27,6 +27,8 @@ const EditTours = () => {
   });
 
   const [loading, setLoading] = useState(true);
+  const [cardImageUrl, setCardImageUrl] = useState("");
+  const [isUploading, setIsUploading] = useState(false);
 
   // ---------------- LOAD DATA ----------------
   useEffect(() => {
@@ -52,6 +54,7 @@ const EditTours = () => {
           programme: data.programme || [{ day: 1, title: "", description: "" }],
           locations: data.locations || [{ name: "", imageUrl: "" }],
         });
+          setCardImageUrl(data.imageUrl || "");
 
       } catch (error) {
         console.log(error);
@@ -69,6 +72,29 @@ const EditTours = () => {
   // ---------------- BASIC CHANGE ----------------
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  useEffect(() => {
+    setForm((prev) => ({ ...prev, imageUrl: cardImageUrl }));
+  }, [cardImageUrl]);
+
+  // ---------------- IMAGE UPLOAD ----------------
+  const uploadImage = async (file, setter) => {
+    try {
+      if (!file) return toast.error("Select image");
+      setIsUploading(true);
+      const formData = new FormData();
+      formData.append("image", file);
+
+      const res = await api.post("imageUpload", formData);
+      const url = res?.data?.url || res?.data?.data || res?.data;
+      setter(url);
+    } catch (err) {
+      console.error(err);
+      toast.error("Image upload failed");
+    } finally {
+      setIsUploading(false);
+    }
   };
 
   // ---------------- OVERVIEW ----------------
@@ -175,14 +201,19 @@ const EditTours = () => {
             </div>
 
             <div className="flex flex-col gap-1">
-              <label className="text-xs font-semibold text-gray-500">Image URL</label>
-              <input
-                name="imageUrl"
-                value={form.imageUrl}
-                onChange={handleChange}
-                className="border p-3 rounded-lg text-sm"
-                placeholder="Image URL"
-              />
+              <label className="text-xs font-semibold text-gray-500">Image</label>
+              <div className="flex flex-col gap-2">
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => uploadImage(e.target.files[0], setCardImageUrl)}
+                  className="border p-2 rounded-lg text-sm"
+                />
+                {cardImageUrl && (
+                  <img src={cardImageUrl} alt="preview" className="w-full h-36 object-cover rounded" />
+                )}
+                {isUploading && <p className="text-xs text-gray-500">Uploading...</p>}
+              </div>
             </div>
 
             <div className="flex flex-col gap-1">
@@ -317,14 +348,24 @@ const EditTours = () => {
                   placeholder="Location Name"
                 />
 
-                <input
-                  value={l.imageUrl}
-                  onChange={(e) =>
-                    handleLocationChange(i, "imageUrl", e.target.value)
-                  }
-                  className="border p-2 flex-1 text-sm rounded-lg"
-                  placeholder="Image URL"
-                />
+                <div className="flex-1">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) =>
+                      uploadImage(e.target.files[0], (url) => {
+                        const updated = [...form.locations];
+                        updated[i].imageUrl = url;
+                        setForm({ ...form, locations: updated });
+                      })
+                    }
+                    className="border p-2 w-full text-sm rounded-lg"
+                  />
+
+                  {l.imageUrl && (
+                    <img src={l.imageUrl} alt="loc" className="mt-2 w-full h-24 object-cover rounded" />
+                  )}
+                </div>
               </div>
             ))}
 
