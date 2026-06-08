@@ -348,14 +348,24 @@ const EditTours = () => {
                   placeholder="Location Name"
                 />
 
-                <input
-                  value={l.imageUrl}
-                  onChange={(e) =>
-                    handleLocationChange(i, "imageUrl", e.target.value)
-                  }
-                  className="border p-2 flex-1 text-sm rounded-lg"
-                  placeholder="Image URL"
-                />
+                <div className="flex-1">
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={(e) =>
+                      uploadImage(e.target.files[0], (url) => {
+                        const updated = [...form.locations];
+                        updated[i].imageUrl = url;
+                        setForm({ ...form, locations: updated });
+                      })
+                    }
+                    className="border p-2 w-full text-sm rounded-lg"
+                  />
+
+                  {l.imageUrl && (
+                    <img src={l.imageUrl} alt={`loc-${i}`} className="mt-2 w-full h-24 object-cover rounded" />
+                  )}
+                </div>
               </div>
             ))}
 
