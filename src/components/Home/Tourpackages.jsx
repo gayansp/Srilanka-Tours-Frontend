@@ -1,57 +1,46 @@
-import React from 'react';
-import { Clock, CheckCircle2, ArrowRight } from 'lucide-react';
+"use client";
 
-const PACKAGES = [
-  {
-    id: 1,
-    title: 'Cultural Triangle Tour',
-    duration: '5 Days / 4 Nights',
-    price: '$450',
-    image: '/images/kandy.jpg',
-    inclusions: [
-      'Sigiriya Rock Fortress',
-      'Dambulla Cave Temple',
-      'Polonnaruwa Ruins',
-      'Kandy Temple of Tooth'
-    ],
-    popular: false
-  },
-  {
-    id: 2,
-    title: 'Hill Country & Beach',
-    duration: '7 Days / 6 Nights',
-    price: '$680',
-    image: '/images/mir.jpg',
-    inclusions: [
-      'Scenic Train Ride',
-      'Tea Plantation Tour',
-      'Ella Rock Hike',
-      'Mirissa Beach Stay'
-    ],
-    popular: true
-  },
-  {
-    id: 3,
-    title: 'Wildlife Safari Explorer',
-    duration: '3 Days / 2 Nights',
-    price: '$320',
-    image: '/images/c8.jpg',
-    inclusions: [
-      'Yala National Park',
-      'Udawalawe Safari',
-      'Elephant Transit Home',
-      'Jungle Camping'
-    ],
-    popular: false
-  }
-];
+import React, { useEffect, useState } from 'react';
+import { Clock, ArrowRight } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import api from '../../api/axios';
+import toast from 'react-hot-toast';
 
 export function TourPackages() {
+  const [allTourpackages, setAllTourpackages] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const router = useRouter();
+
+  const fetchTours = async () => {
+    try {
+      setIsLoading(true);
+      const response = await api.get("/tourpackages/all");
+      setAllTourpackages(response.data.data || response.data.date || []);
+    } catch (error) {
+      console.error('Error fetching tours:', error);
+      toast.error('Something went wrong fetching tour packages');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchTours();
+  }, []);
+
+  if (isLoading && allTourpackages.length === 0) {
+    return (
+      <div className="text-center py-24 text-lg font-medium bg-slate-50">
+        Loading Tour Packages...
+      </div>
+    );
+  }
+
   return (
     <section id="tours" className="py-24 bg-background bg-slate-50 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6">
         
-        {/* Header Block with Upward Fade Entry */}
+        {/* Header Block */}
         <div className="text-center mb-16 animate-in fade-in slide-in-from-bottom-6 duration-1000 ease-out fill-mode-forwards">
           <span className="text-accent text-emerald-600 font-semibold tracking-wider uppercase text-sm mb-2 block">
             Curated Experiences
@@ -67,8 +56,7 @@ export function TourPackages() {
 
         {/* Package Grid Container */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {PACKAGES.map((pkg, index) => {
-            // Generates staggered entry timing flags dynamically per index
+          {allTourpackages.map((pkg, index) => {
             const delayClasses = [
               'delay-0',
               'delay-200 md:delay-[200ms]',
@@ -76,10 +64,9 @@ export function TourPackages() {
             ];
 
             return (
-              /* Inline Animated Structural Core Grid Node Wrapper */
               <div 
-                key={pkg.id} 
-                className={`w-full h-full animate-in fade-in slide-in-from-bottom-8 duration-1000 ease-out fill-mode-forwards ${delayClasses[index] || 'delay-0'}`}
+                key={pkg._id} 
+                className={`w-full h-full animate-in fade-in slide-in-from-bottom-8 duration-1000 ease-out fill-mode-forwards ${delayClasses[index % 3] || 'delay-0'}`}
               >
                 <div
                   className={`bg-surface bg-white rounded-3xl overflow-hidden shadow-md border h-full flex flex-col transition-all duration-300 hover:-translate-y-2 hover:shadow-xl ${
@@ -88,10 +75,10 @@ export function TourPackages() {
                       : 'border-gray-100'
                   }`}
                 >
-                  {/* Card Banner Resource Element */}
+                  {/* Card Banner */}
                   <div className="relative h-64 w-full overflow-hidden">
                     <img
-                      src={pkg.image}
+                      src={pkg.imageUrl}
                       alt={pkg.title}
                       className="w-full h-full object-cover transition-transform duration-700 hover:scale-105" 
                     />
@@ -104,41 +91,36 @@ export function TourPackages() {
                     
                     <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-xl flex items-center gap-2 text-sm font-semibold text-slate-900 shadow-sm">
                       <Clock className="w-4 h-4 text-primary text-blue-600" />
-                      {pkg.duration}
+                      {pkg.numberOfDays} Days
                     </div>
                   </div>
 
-                  {/* Card Information Elements */}
+                  {/* Card Information */}
                   <div className="p-8 flex-grow flex flex-col">
-                    <div className="flex justify-between items-start mb-4">
-                      <h3 className="font-serif text-2xl font-bold text-text text-slate-900 leading-tight">
-                        {pkg.title}
-                      </h3>
+                    <h3 className="font-serif text-2xl font-bold text-text text-slate-900 leading-tight mb-4">
+                      {pkg.title}
+                    </h3>
+
+                    <div className="h-[120px] overflow-y-auto mb-6 pr-2">
+                      <p className="text-sm text-slate-600 leading-relaxed text-justify">
+                        {pkg.details}
+                      </p>
                     </div>
 
-                    <div className="text-3xl font-bold text-primary text-blue-600 mb-6">
-                      {pkg.price}{' '}
+                    <div className="text-3xl font-bold text-primary text-emerald-700 mb-6 mt-auto">
+                      Rs. {pkg.pricePerPerson}{' '}
                       <span className="text-sm font-normal text-text-muted text-slate-500">
                         / person
                       </span>
                     </div>
 
-                    {/* Inclusive Item Checklist Grid */}
-                    <div className="space-y-3 mb-8 flex-grow">
-                      {pkg.inclusions.map((inc, i) => (
-                        <div key={i} className="flex items-start gap-3">
-                          <CheckCircle2 className="w-5 h-5 text-accent text-emerald-500 shrink-0 mt-0.5" />
-                          <span className="text-text-muted text-slate-600 text-sm">{inc}</span>
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* Interactive Context Direct Action Controller */}
+                    {/* Book Button */}
                     <button
+                      onClick={() => router.push(`/tour-details/${pkg._id}`)}
                       className={`w-full py-4 rounded-xl font-semibold transition-all flex items-center justify-center gap-2 shadow-sm ${
                         pkg.popular 
-                          ? 'bg-primary bg-blue-600 hover:bg-blue-700 text-white' 
-                          : 'bg-blue-50 text-blue-600 hover:bg-blue-100'
+                          ? 'bg-emerald-600 hover:bg-emerald-700 text-white' 
+                          : 'bg-emerald-50 text-emerald-600 hover:bg-emerald-100'
                       }`}
                     >
                       Book Package
