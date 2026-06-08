@@ -117,7 +117,7 @@ export function TourPackages({ showViewAll = true }) {
                     </div>
 
                     <div className="text-3xl font-bold text-primary text-emerald-700 mb-6 mt-auto">
-                      Rs. {pkg.pricePerPerson}{' '}
+                      $ {pkg.pricePerPerson}{' '}
                       <span className="text-sm font-normal text-text-muted text-slate-500">
                         / person
                       </span>
