@@ -229,7 +229,7 @@ const EditTours = () => {
             </div>
 
             <div className="flex flex-col gap-1">
-              <label className="text-xs font-semibold text-gray-500">Price </label>
+              <label className="text-xs font-semibold text-gray-500">Price ($)</label>
               <input
                 name="pricePerPerson"
                 value={form.pricePerPerson}
@@ -348,24 +348,14 @@ const EditTours = () => {
                   placeholder="Location Name"
                 />
 
-                <div className="flex-1">
-                  <input
-                    type="file"
-                    accept="image/*"
-                    onChange={(e) =>
-                      uploadImage(e.target.files[0], (url) => {
-                        const updated = [...form.locations];
-                        updated[i].imageUrl = url;
-                        setForm({ ...form, locations: updated });
-                      })
-                    }
-                    className="border p-2 w-full text-sm rounded-lg"
-                  />
-
-                  {l.imageUrl && (
-                    <img src={l.imageUrl} alt="loc" className="mt-2 w-full h-24 object-cover rounded" />
-                  )}
-                </div>
+                <input
+                  value={l.imageUrl}
+                  onChange={(e) =>
+                    handleLocationChange(i, "imageUrl", e.target.value)
+                  }
+                  className="border p-2 flex-1 text-sm rounded-lg"
+                  placeholder="Image URL"
+                />
               </div>
             ))}
 
