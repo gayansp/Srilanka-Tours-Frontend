@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from 'react';
 import {
   MapPin,
@@ -10,63 +12,91 @@ import {
   Bus
 } from 'lucide-react';
 import api from '../../api/axios';
-import toast from 'react-hot-toast';
+import ErrorPage from '../../views/ErrorPage';
+import { BeatLoader } from 'react-spinners';
 
-// Mock distances between popular Sri Lankan cities (in km)
 
+
+  
 
 export function Calculator() {
 
 
-  const [startLoc, setStartLoc] = useState({ lat: 3.179923492694522, lng: 79.88397104877485 });
-  const [endLoc, setEndLoc] = useState({ lat: 9.840501633747571, lng: 81.83680543711263 });
-
+  const [startLocation, setStartLoc] = useState('');
+  const [endLocation, setEndLoc] = useState('');
+  const [vehicleName, setVehicleName] = useState('');
   const [fullName, setFullName] = useState('');
-  const [phone, setPhone] = useState('');
-  const [travelDate, setTravelDate] = useState('');
-  const [pickupTime, setPickupTime] = useState('');
-
-
+  const [contact, setContact] = useState('');
+  const [date, setDate] = useState('');
+  const [time, setTime] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
 
+  const [vehicles, setVehicles] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError,setIsError] = useState(false);
 
-  const [costLoading, setCostLoading] = useState(false);
+const vehicleTypes = [
+    { name: "Car", image: "/images/car.png" },
+    { name: "Van", image: "/images/van.png" },
+    { name: "SUV", image: "/images/SUV.png" },
+  ]
 
-  // Calculate distance when locations change
-  useEffect(() => {
-
-  }, []);
-
-
-
-
-
-  const handleSubmit = async(e) => {
-    e.preventDefault();
-    
+// Mock distances between popular Sri Lankan cities (in km)
+const fetchVehicles = async () => {
     try {
-
-      const response = await api.post("inquery/add",{
-        startCoords : startLoc,
-        endCoords : endLoc,
-        rateId : selectedVehicle,
-        contact: phone,
-        fullName: fullName,
-        date: travelDate,
-        time: pickupTime
-      })
-
-      toast.success('Inquiry sent successfully! We will contact you soon.');
-
+        setIsLoading(true);
+        const response = await api.get("vehicles/get");
+        setVehicles(response.data.vehicles);
 
     } catch (error) {
-      toast.error('Something went wrong!');
-      console.error('Error submitting inquiry:', error);
+        console.error("Error fetching vehicles:", error);
+        setIsError(true);
+    } finally {
+        setIsLoading(false);
     }
-    
-  };
+  }
+  
 
+  const handleSubmit = (e) => {
+  e.preventDefault();
+  setIsSubmitting(true);
+
+  const fullMessage = `
+ *New Trip Inquiry*
+
+ - Start Location: ${startLocation}
+ - End Location: ${endLocation}
+ - Vehicle: ${vehicleName}
+
+ - Name: ${fullName}
+ - Contact: ${contact}
+
+ - Date: ${date}
+ - Time: ${time}
+  `;
+
+  const whatsappUrl = `https://wa.me/94706000344?text=${encodeURIComponent(fullMessage)}`;
+
+  setTimeout(() => {
+    setIsSubmitting(false);
+    window.open(whatsappUrl, "_blank");
+  }, 600);
+};
+
+  useEffect(() => {
+    fetchVehicles();
+  }, []);
+
+  if(isError){
+    return <ErrorPage/>
+  }
+
+  if(isLoading){
+    return <div className="mt-16 flex items-center justify-center h-full">
+        <BeatLoader color="red" />
+    </div>
+  }
 
   return (
     <section id="calculator" className="py-24 bg-white relative">
@@ -77,11 +107,11 @@ export function Calculator() {
         {/* Animated Header Component Container */}
         <div className="text-center mb-16 animate-in fade-in slide-in-from-bottom-4 duration-700 ease-out fill-mode-forwards">
           <h2 className="font-serif text-4xl md:text-5xl font-bold text-slate-900 mb-4">
-            Calculate Your Trip
+            Sri Lanka Tour & Driver Cost Calculator
           </h2>
           <p className="text-cyan-800 max-w-2xl mx-auto text-lg">
-            Get an instant estimate for your journey across Sri Lanka.
-            Choose your route, pick a vehicle, and let's get started.
+            Get an instant budget estimate for your custom Sri Lanka tours. Plan your Ella travels,
+            Udawalawa tours, or full island private transport service with SL Travels today.
           </p>
         </div>
 
@@ -142,15 +172,28 @@ export function Calculator() {
                 <div className="space-y-4">
                   <label className="text-sm font-semibold text-slate-700 flex items-center justify-between">
                     <span>Select Vehicle</span>
-                    <span className="text-xs font-normal text-slate-500">
-                      Rates are per km and may vary based on exact route
-                    </span>
+                    
                   </label>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     {
-                      
-                      
+                      vehicles.map((vehicle) => {
+                        const vType = vehicleTypes.find(type => type.name === vehicle.type);
+                        return (
+                          <label key={vehicle.id || vehicle.name} className="cursor-pointer" >
+                            <input onChange={() => setVehicleName(vehicle.name)} type="radio" name="vehicle" value={vehicle.name} className="sr-only" />
+                            <div className={`flex flex-col items-center gap-3 p-4 ${vehicle.name == vehicleName ? "bg-red-100" : "bg-white"} border ${vehicle.name == vehicleName ? "border-red-600" : "border-gray-100"} rounded-2xl shadow-sm hover:shadow-md transition-transform transform hover:-translate-y-1 hover:scale-[1.02]`}>
+                              {vType?.image ? (
+                                <img className="w-12 h-12 object-contain" src={vType.image} alt={vehicle.type} />
+                              ) : (
+                                <div className="w-12 h-12 rounded-full bg-emerald-50 flex items-center justify-center text-emerald-600 font-semibold">{vehicle.name.charAt(0)}</div>
+                              )}
+                              <div className="text-sm font-semibold text-slate-700">{vehicle.name}</div>
+                              <div className="text-xs text-slate-400">{vType?.description || vehicle.type}</div>
+                            </div>
+                          </label>
+                        )
+                      })
                     }
                   </div>
                 </div>
@@ -180,8 +223,8 @@ export function Calculator() {
                         type="tel"
                         required
                         placeholder="+94 77 123 4567"
-                        value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
+                        value={contact}
+                        onChange={(e) => setContact(e.target.value)}
                         className="w-full pl-12 pr-4 py-3 rounded-xl bg-white border border-gray-200 outline-none text-slate-800 shadow-sm"
                       />
                     </div>
@@ -194,8 +237,8 @@ export function Calculator() {
                       <input
                         type="date"
                         required
-                        value={travelDate}
-                        onChange={(e) => setTravelDate(e.target.value)}
+                        value={date}
+                        onChange={(e) => setDate(e.target.value)}
                         className="w-full pl-12 pr-4 py-3 rounded-xl bg-white border border-gray-200 outline-none text-slate-800 shadow-sm"
                       />
                     </div>
@@ -208,8 +251,8 @@ export function Calculator() {
                       <input
                         type="time"
                         required
-                        value={pickupTime}
-                        onChange={(e) => setPickupTime(e.target.value)}
+                        value={time}
+                        onChange={(e) => setTime(e.target.value)}
                         className="w-full pl-12 pr-4 py-3 rounded-xl bg-white border border-gray-200 outline-none text-slate-800 shadow-sm"
                       />
                     </div>
@@ -222,7 +265,7 @@ export function Calculator() {
                     disabled={isSubmitting}
                     className="w-full md:w-auto px-8 py-4 rounded-xl bg-[#25D366] hover:bg-[#20ba5a] text-white font-semibold text-lg transition-all flex items-center justify-center gap-2 disabled:opacity-70 shadow-sm"
                   >
-                    {isSubmitting ? 'Processing...' : 'Send Inquiry Via WhatsApp'}
+                    {isSubmitting ? <BeatLoader size={8} color="white" /> : 'Send Inquiry Via WhatsApp'}
                     {!isSubmitting && <Send className="w-5 h-5" />}
                   </button>
                 </div>
@@ -230,7 +273,7 @@ export function Calculator() {
             </div>
 
             {/* Dark Green Summary Section Sidebar */}
-            <div className="lg:col-span-4 bg-[#112d24] text-white p-8 md:p-12 flex flex-col justify-center relative overflow-hidden">
+            <div className="lg:col-span-4 bg-gradient-to-br from-[#0f2a22] via-[#112d24] to-[#0b201a] text-white p-8 md:p-12 flex flex-col justify-center relative overflow-hidden border border-white/10 shadow-2xl">
               <div
                 className="absolute inset-0 opacity-5"
                 style={{
@@ -240,39 +283,70 @@ export function Calculator() {
               />
 
               <div className="relative z-10">
-                <h3 className="font-serif text-2xl font-bold mb-8">
-                  Trip Summary
-                </h3>
-
-                <div className="space-y-6">
-                  <div className="flex justify-between items-center pb-6 border-b border-white/10">
-                    <span className="text-white/60">Estimated Distance</span>
-                    <span className="text-2xl font-bold">
-                      
-                    </span>
+                  <div className="inli  ne-flex items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-400/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.2em] text-emerald-200 mb-6 w-fit">
+                    Trip Summary
                   </div>
 
-                  <div className="flex justify-between items-center pb-6 border-b border-white/10">
-                    <span className="text-white/60">Vehicle Type</span>
-                    <span className="font-semibold text-right">
-                     
-                      <br />
-                     
-                    </span>
-                  </div>
-
-                  <div className="pt-4">
-                    <span className="text-white/60 block mb-2">Estimated Total</span>
-                    <div className="text-4xl font-bold text-emerald-400">
-                     
+                  <div className="space-y-4">
+                    <div className="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 shadow-sm backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10">
+                      <div className="text-[11px] uppercase tracking-[0.28em] text-white/50 mb-2 font-medium">
+                        Start Location
+                      </div>
+                      <div className="text-base md:text-lg font-semibold text-white break-words leading-snug">
+                        {startLocation}
+                      </div>
                     </div>
 
-                    <p className="text-xs text-white/40 mt-6 leading-relaxed">
-                      * This is an estimated cost based on standard routes. Final price may vary based on exact pickup/drop-off locations and detours.
-                    </p>
+                    <div className="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 shadow-sm backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10">
+                      <div className="text-[11px] uppercase tracking-[0.28em] text-white/50 mb-2 font-medium">
+                        End Location
+                      </div>
+                      <div className="text-base md:text-lg font-semibold text-white break-words leading-snug">
+                        {endLocation}
+                      </div>
+                    </div>
+
+                    <div className="rounded-2xl border border-emerald-400/25 bg-gradient-to-br from-emerald-400/15 to-emerald-500/5 px-5 py-4 shadow-sm backdrop-blur-sm">
+                      <span className="text-[11px] uppercase tracking-[0.28em] text-emerald-200/80 block mb-2 font-medium">Vehicle Type</span>
+                      <div className="text-xl md:text-2xl font-bold text-emerald-300 break-words leading-tight">
+                        {vehicleName}
+                      </div>
+                    </div>
+
+                    <div className="grid gap-4 md:grid-cols-2">
+                      <div className="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 shadow-sm backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10">
+                        <span className="text-[11px] uppercase tracking-[0.28em] text-white/50 block mb-2 font-medium">Full Name</span>
+                        <div className="text-base font-semibold text-white break-words leading-snug">
+                          {fullName}
+                        </div>
+                      </div>
+
+                      <div className="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 shadow-sm backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10">
+                        <span className="text-[11px] uppercase tracking-[0.28em] text-white/50 block mb-2 font-medium">Contact</span>
+                        <div className="text-base font-semibold text-white break-words leading-snug">
+                          {contact}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="grid gap-4 md:grid-cols-2">
+                      <div className="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 shadow-sm backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10">
+                        <span className="text-[11px] uppercase tracking-[0.28em] text-white/50 block mb-2 font-medium">Travel Date</span>
+                        <div className="text-base font-semibold text-white break-words leading-snug">
+                          {date}
+                        </div>
+                      </div>
+
+                      <div className="rounded-2xl border border-white/10 bg-white/5 px-5 py-4 shadow-sm backdrop-blur-sm transition-all hover:border-white/20 hover:bg-white/10">
+                        <span className="text-[11px] uppercase tracking-[0.28em] text-white/50 block mb-2 font-medium">Pickup Time</span>
+                        <div className="text-base font-semibold text-white break-words leading-snug">
+                          {time}
+                        </div>
+                      </div>
+                    </div>
+
                   </div>
                 </div>
-              </div>
             </div>
 
           </div>

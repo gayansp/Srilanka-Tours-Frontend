@@ -2,7 +2,7 @@ import { Mail, Phone, MapPin, MessageSquare } from 'lucide-react';
 
 export function Contactus() {
   const handleWhatsApp = () => {
-    const phoneNumber = '94771234567'; // Replace with your live WhatsApp business number
+    const phoneNumber = '94706000344'; // Replace with your live WhatsApp business number
     const message = encodeURIComponent('Hi Udawala Tours! I am interested in planning a Sri Lankan safari experience.');
     window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
   };
@@ -16,7 +16,7 @@ export function Contactus() {
       {/* Background Image Asset with Rich Dark Overlay Layer */}
       <div className="absolute inset-0 z-0">
         <img
-          src="public/images/MinneriyaNationalParkPrivateJeepElephant’sSafari.jpg"
+          src="/images/MinneriyaNationalParkPrivateJeepElephant’sSafari.jpg"
           alt="Sri Lankan Safari Bus Background"
           className="h-full w-full object-cover opacity-3000 transition-transform duration-1000 select-none scale-105"
         />
@@ -66,14 +66,14 @@ export function Contactus() {
 
         {/* Metadata Grid Inline Footer Ribbon */}
         <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-4 text-xs md:text-sm font-medium text-gray-300">
-          <a href="tel:+94771234567" className="flex items-center gap-2 hover:text-white transition-colors">
+          <a href="tel:+94706000344" className="flex items-center gap-2 hover:text-white transition-colors">
             <Phone className="w-4 h-4 text-[#f19c49] fill-[#f19c49]/20" />
-            +94 77 123 4567
+            +94 70 600 0344
           </a>
           
-          <a href="mailto:info@udawalatours.lk" className="flex items-center gap-2 hover:text-white transition-colors">
+          <a href="mailto:srilankatours@gmail.com" className="flex items-center gap-2 hover:text-white transition-colors">
             <Mail className="w-4 h-4 text-[#f19c49]" />
-            info@udawalatours.lk
+            srilankatours@gmail.com
           </a>
           
           <div className="flex items-center gap-2 select-none">

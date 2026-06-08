@@ -1,9 +1,11 @@
+"use client";
+
 import React, { useEffect, useState } from 'react';
 import api from '../../api/axios';
 import toast from 'react-hot-toast';
 import { WifiOff, RefreshCw, CircleCheck, ImageOff, ArrowRight } from 'lucide-react';
-import ErrorPage from '../../pages/ErrorPage';
-import { Link } from 'react-router-dom';
+import ErrorPage from '../../views/ErrorPage';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 
 const containerVariants = {
@@ -42,7 +44,7 @@ export function Gallery({ limit }) {
       setPhotos(response.data.galleryImages);
     } catch (error) {
       console.error('Error fetching gallery images:', error);
-      toast.error('Failed to load gallery images');
+      toast.error('Somthing went wrong');
       setIsError(true);
     } finally {
       setIsLoading(false);
@@ -147,7 +149,7 @@ export function Gallery({ limit }) {
               </p>
             </div>
             <Link
-              to="/gallery"
+              href="/gallery"
               className="inline-flex items-center gap-2 text-primary text-blue-600 font-semibold hover:text-emerald-600 transition-colors group no-underline"
             >
               View All Gallery

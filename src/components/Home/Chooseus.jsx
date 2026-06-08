@@ -50,9 +50,9 @@ export function WhyChooseUs() {
               Your Trusted Partner in Sri Lanka
             </h2>
             <p className="text-text-muted text-slate-600 text-lg mb-8 leading-relaxed">
-              With over a decade of experience, Udawala Tours has been
+              With over a decade of experience, Udawala Tours (your trusted agency for Udawalawa tours, Ella travels, and SL Travels) has been
               crafting unforgettable journeys across the island. We believe in
-              sustainable tourism, supporting local communities, and providing
+              sustainable Sri Lanka tourism, supporting local communities, and providing
               our guests with genuine, heartfelt Sri Lankan hospitality.
             </p>
 
@@ -83,8 +83,8 @@ export function WhyChooseUs() {
           <div className="relative animate-in fade-in slide-in-from-right-8 duration-1000 ease-out fill-mode-forwards delay-150">
             <div className="relative rounded-3xl overflow-hidden aspect-[4/5] shadow-2xl">
               <img
-                src="public/images/WhatsApp Image 2026-05-27 at 13.45.51.jpeg"
-                alt="Sri Lankan Guide"
+                src="/images/WhatsApp Image 2026-05-27 at 13.45.51.jpeg"
+                alt="Experienced tour driver guide in Sri Lanka - SL Travels"
                 className="w-full h-full object-cover transition-transform duration-700 hover:scale-105" 
               />
               
@@ -95,21 +95,7 @@ export function WhyChooseUs() {
                 <div className="bg-white/95 backdrop-blur-md p-6 rounded-2xl shadow-lg border border-white/20">
                   <div className="flex items-center gap-4 mb-2">
                     <div className="flex -space-x-3">
-                      <img
-                        src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&auto=format&fit=crop"
-                        className="w-10 h-10 rounded-full border-2 border-white object-cover"
-                        alt="User Avatar" 
-                      />
-                      <img
-                        src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=100&auto=format&fit=crop"
-                        className="w-10 h-10 rounded-full border-2 border-white object-cover"
-                        alt="User Avatar" 
-                      />
-                      <img
-                        src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&auto=format&fit=crop"
-                        className="w-10 h-10 rounded-full border-2 border-white object-cover"
-                        alt="User Avatar" 
-                      />
+                      
                     </div>
                     <div className="text-sm font-bold text-text text-slate-900">
                       15k+ Guests
