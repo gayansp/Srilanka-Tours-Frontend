@@ -48,7 +48,7 @@ const Hero = () => {
   <span className="text-[clamp(44px,6.5vw,80px)] block">
     Sri Lanka Tours
   </span>
-  <span className="text-accent block">Udawalawa Safari</span>
+  <span className="text-accent block"> & Udawalawa Safari</span>
 </h1>
 
         <p className="font-sans text-base text-white/75 leading-[1.7] mb-[30px] max-w-[460px]">
