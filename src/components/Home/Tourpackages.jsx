@@ -3,10 +3,11 @@
 import React, { useEffect, useState } from 'react';
 import { Clock, ArrowRight } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import api from '../../api/axios';
 import toast from 'react-hot-toast';
 
-export function TourPackages() {
+export function TourPackages({ showViewAll = true }) {
   const [allTourpackages, setAllTourpackages] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
@@ -41,22 +42,30 @@ export function TourPackages() {
       <div className="max-w-7xl mx-auto px-6">
         
         {/* Header Block */}
-        <div className="text-center mb-16 animate-in fade-in slide-in-from-bottom-6 duration-1000 ease-out fill-mode-forwards">
-          <span className="text-accent text-emerald-600 font-semibold tracking-wider uppercase text-sm mb-2 block">
-            Curated Experiences
-          </span>
-          <h2 className="font-serif text-4xl md:text-5xl font-bold text-text text-slate-900 mb-4">
-            Sri Lanka Tour Packages & Travels
-          </h2>
-          <p className="text-text-muted text-slate-600 max-w-2xl mx-auto text-lg">
-            Carefully crafted itineraries by SL Travels that showcase the best of Sri Lanka.
-            Enjoy scenic Ella travels, wild Udawalawa tours, pristine beaches, and ancient cultural heritage.
-          </p>
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6 animate-in fade-in slide-in-from-bottom-6 duration-1000 ease-out fill-mode-forwards">
+          <div className="max-w-2xl text-left">
+            <span className="text-accent text-emerald-600 font-semibold tracking-wider uppercase text-sm mb-2 block">
+              Curated Experiences
+            </span>
+            <h2 className="font-serif text-4xl md:text-5xl font-bold text-text text-slate-900 mb-4">
+              Sri Lanka Tour Packages & Travels
+            </h2>
+            <p className="text-text-muted text-slate-600 text-lg">
+              Carefully crafted itineraries by SL Travels that showcase the best of Sri Lanka.
+              Enjoy scenic Ella travels, wild Udawalawa tours, pristine beaches, and ancient cultural heritage.
+            </p>
+          </div>
+          {showViewAll && (
+            <Link href="/tours" className="inline-flex items-center gap-2 text-primary text-blue-600 font-semibold hover:text-emerald-600 transition-colors group no-underline shrink-0">
+              View All Tours
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          )}
         </div>
 
         {/* Package Grid Container */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {allTourpackages.map((pkg, index) => {
+          {allTourpackages.slice().reverse().slice(0, 3).map((pkg, index) => {
             const delayClasses = [
               'delay-0',
               'delay-200 md:delay-[200ms]',

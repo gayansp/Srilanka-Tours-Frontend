@@ -17,7 +17,7 @@ export const metadata = {
 export default function ToursPage() {
   return (
     <PageWrapper>
-      <TourPackages />
+      <TourPackages showViewAll={false} />
     </PageWrapper>
   );
 }

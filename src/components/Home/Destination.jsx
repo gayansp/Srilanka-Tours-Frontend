@@ -88,7 +88,7 @@ export function Destinations() {
           viewport={{ once: true, margin: "-80px" }}
           className="grid grid-cols-1 md:grid-cols-4 auto-rows-[250px] gap-4 md:gap-6"
         >
-          {allDestinations.slice(0, 5).map((dest, index) => {
+          {allDestinations.slice().reverse().slice(0, 5).map((dest, index) => {
             // Assign varying layout grid spans dynamically for the top 5 spots
             const colSpan = index === 0 
               ? 'md:col-span-2 md:row-span-2' 
