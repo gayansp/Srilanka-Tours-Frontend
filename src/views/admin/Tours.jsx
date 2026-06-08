@@ -138,7 +138,7 @@ const AdminTours = () => {
 
                 {/* PRICE */}
                 <h3 className="text-xl font-bold text-green-700 mt-3">
-                  Rs. {pkg.pricePerPerson}
+                  $ {pkg.pricePerPerson}
                 </h3>
 
                 {/* ACTIONS */}
