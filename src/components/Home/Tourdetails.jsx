@@ -311,7 +311,7 @@ export function Tourdetails() {
                   </div>
     
                   <a
-                    href="https://wa.me/94706000344?text=Hi%20I%20am%20interested%20in%20booking%20this%20tour%20package"
+                    href={`https://wa.me/94706000344?text=Hi%20I%20am%20interested%20in%20booking%20this%20tour%20package%20-%20[${pkg.title}]`}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="w-full py-4 rounded-xl bg-primary hover:bg-primary-light text-white font-semibold flex items-center justify-center gap-2 transition-colors">
