@@ -67,8 +67,8 @@ ${message}
                 <div>
                   <h4 className="font-bold text-xl">Visit Our Office</h4>
                   <p className="text-gray-600">
-                    123 Temple Road,<br />
-                    Colombo 03, Sri Lanka
+                    Udawalawa, Sri Lanka<br />
+                    (Near Udawalawa National Park)
                   </p>
                 </div>
               </div>
@@ -97,8 +97,8 @@ ${message}
                 <div>
                   <h4 className="font-bold text-xl">Email</h4>
                   <p className="text-gray-600">
-                    hello@udawalatours.com<br />
-                    bookings@udawalatours.com
+                    toursudawalawa@gmail.com<br />
+                    www.udawalawatours.com
                   </p>
                 </div>
               </div>
