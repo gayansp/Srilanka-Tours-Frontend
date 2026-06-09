@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'api.udawalawatours.com/api',
+    baseURL: 'https://api.udawalawatours.com/api',
 });
 
 api.interceptors.request.use((config) => {
