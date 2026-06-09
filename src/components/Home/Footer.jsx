@@ -98,7 +98,7 @@ const Footer = () => {
                 <span>📞</span> +94 70 600 0344
               </li>
               <li className="flex items-start gap-3 text-white/50 text-sm">
-                <span>✉️</span>srilankatours@gmail.com
+                <span>✉️</span>udawalawatours@gmail.com
               </li>
               <li>
                 <a

@@ -57,9 +57,7 @@ const Hero = () => {
         </p>
 
         <div className="flex gap-3 flex-wrap mb-10 max-md:flex-col">
-          <a href="#calculator" className="font-sans text-[15px] font-medium bg-accent hover:bg-accent-hover text-white px-[26px] py-[13px] rounded-lg no-underline transition-all duration-200 hover:-translate-y-[2px] text-center">
-            Calculate Trip Cost
-          </a>
+         
           <Link href="/tours" className="font-sans text-[15px] font-medium bg-white/12 border border-white/30 text-white px-[26px] py-[13px] rounded-lg no-underline backdrop-blur-[8px] transition-all duration-200 hover:-translate-y-[2px] hover:bg-white/22 text-center">
             Explore Packages
           </Link>
