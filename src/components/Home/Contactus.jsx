@@ -73,7 +73,7 @@ export function Contactus() {
           
           <a href="mailto:srilankatours@gmail.com" className="flex items-center gap-2 hover:text-white transition-colors">
             <Mail className="w-4 h-4 text-[#f19c49]" />
-            srilankatours@gmail.com
+            toursudawalawa@gmail.com
           </a>
           
           <div className="flex items-center gap-2 select-none">
