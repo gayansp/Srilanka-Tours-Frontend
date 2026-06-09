@@ -8,7 +8,7 @@ export function Contactus() {
   };
 
   const handleEmail = () => {
-    window.location.href = 'mailto:info@udawalators.lk?subject=Safari Trip Inquiry';
+    window.location.href = 'mailto:udawalawatours@gmail.com?subject=Safari Trip Inquiry';
   };
 
   return (
