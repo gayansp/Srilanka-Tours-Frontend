@@ -20,7 +20,7 @@ jobs:
             [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
             nvm use 22
 
-            cd ~/project-frontend
+            cd /var/www/Srilanka-Tours-Frontend
             git pull origin main
             npm install
             npm run build
