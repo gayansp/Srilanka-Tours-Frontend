@@ -116,12 +116,12 @@ export function TourPackages({ showViewAll = true }) {
                       </p>
                     </div>
 
-                    <div className="text-3xl font-bold text-primary text-emerald-700 mb-6 mt-auto">
+                    {/* <div className="text-3xl font-bold text-primary text-emerald-700 mb-6 mt-auto">
                       $ {pkg.pricePerPerson}{' '}
                       <span className="text-sm font-normal text-text-muted text-slate-500">
                         / person
                       </span>
-                    </div>
+                    </div> */}
 
                     {/* Book Button */}
                     <button
