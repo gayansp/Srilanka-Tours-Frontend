@@ -116,12 +116,12 @@ export function Tourdetails() {
                     </div>
                     ))}
                 </span>
-                <span className="text-2xl font-bold">
+                {/* <span className="text-2xl font-bold">
                   {pkg.pricePerPerson}{' '}
                   <span className="text-sm font-normal text-white/70">
                     / person
                   </span>
-                </span>
+                </span> */}
               </div>
             </div>
           </section>
@@ -278,7 +278,7 @@ export function Tourdetails() {
               {/* Booking sidebar */}
               <aside className="lg:col-span-1">
                 <div className="sticky top-32 bg-surface rounded-3xl border border-gray-100 shadow-soft p-8">
-                  <div className="text-center pb-6 border-b border-gray-100 mb-6">
+                  {/* <div className="text-center pb-6 border-b border-gray-100 mb-6">
                     <div className="text-sm text-text-muted mb-1">
                       Starting from
                     </div>
@@ -286,7 +286,7 @@ export function Tourdetails() {
                       {pkg.pricePerPerson}
                     </div>
                     <div className="text-sm text-text-muted">per person</div>
-                  </div>
+                  </div> */}
     
                   <div className="space-y-4 mb-6">
                     <div className="flex items-center gap-3 text-sm">
