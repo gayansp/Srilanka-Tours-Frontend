@@ -265,7 +265,7 @@ const fetchVehicles = async () => {
                     disabled={isSubmitting}
                     className="w-full md:w-auto px-8 py-4 rounded-xl bg-[#25D366] hover:bg-[#20ba5a] text-white font-semibold text-lg transition-all flex items-center justify-center gap-2 disabled:opacity-70 shadow-sm"
                   >
-                    {isSubmitting ? <BeatLoader size={8} color="white" /> : 'Send'}
+                    {isSubmitting ? <BeatLoader size={8} color="white" /> : 'Send Inquiry Via WhatsApp'}
                     {!isSubmitting && <Send className="w-5 h-5" />}
                   </button>
                 </div>
